@@ -14,6 +14,8 @@ angular.module('quickJobs.login', ['ngRoute'])
 
         $scope.user = loginService.getUser().success(function (data) {
             if(data){
+                preferences.set('user', data);
+
                 if(data.companyId){
                     $rootScope.companyId = data.companyId;
                     $location.path('/timesheet');
