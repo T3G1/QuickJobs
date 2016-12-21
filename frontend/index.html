@@ -24,31 +24,31 @@
     <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.ico"/>
 
     <link rel="stylesheet" href="common/styles.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 
-<body ng-class="{'intro-active': introIsActive}">
+<body ng-controller="quickJobsController">
 
 <div class="page-loading" ng-if="!isNotLoggedIn && !isLoggedIn">
     <img src="common/images/animation-wait.gif" alt=""/>
 </div>
 
 <nav class="main-controls">
-    <a class="logo" href="">
-    </a>
+    <a class="logo" href=""></a>
 
-    <a href="landing">
+    <a href="" ng-click="changeView('landing')">
         <span>landing</span>
     </a>
     <br>
-    <a href="list">
+    <a href="" ng-click="changeView('list')">
         <span>list</span>
     </a>
     <br>
-    <a href="login">
+    <a href="" ng-click="changeView('login')">
         <span>login</span>
     </a>
     <br>
-    <a href="proposal">
+    <a href="" ng-click="changeView('proposal')">
         <span>proposal</span>
     </a>
 </nav>
