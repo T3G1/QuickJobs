@@ -6,7 +6,7 @@ exports.validateUser = function(req, res, next) {
     returnErrors(req, res, next);
 };
 
-exports.validateRequest = function(req, res, next) {
+exports.validateProposal = function(req, res, next) {
     req.checkBody('title','Title is not valid').notEmpty().isLength({max: 127});
     req.checkBody('price','Price is not valid').notEmpty().isFloat();
     req.checkBody('startTime','Start time is not valid').notEmpty().isDate();
