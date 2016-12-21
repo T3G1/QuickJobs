@@ -17,6 +17,11 @@ exports.validateRequest = function(req, res, next) {
     returnErrors(req, res, next);
 };
 
+exports.validateParamsId = function(req, res, next) {
+    req.checkParams('id','Id is not valid').notEmpty().isInt();
+    returnErrors(req, res, next);
+};
+
 function returnErrors(req, res, next) {
     var errors = req.validationErrors(true);
     if(errors) {

@@ -11,8 +11,23 @@ clientRouter.put('/signup',
     validation.validateUser,
     client.signup);
 clientRouter.put('/create-request',
+    authentication.ensureAuthenticated(client.type),
     validation.validateRequest,
     client.createRequest);
+clientRouter.get('/my-requests',
+    authentication.ensureAuthenticated(client.type),
+    client.getMyRequests);
+clientRouter.get('/response/:id',
+    authentication.ensureAuthenticated(client.type),
+    validation.validateParamsId,
+    client.getRequestResponses);
+clientRouter.get('/all-requests',
+    authentication.ensureAuthenticated(client.type),
+    client.getAllRequests);
+clientRouter.post('/send-response/:id',
+    authentication.ensureAuthenticated(client.type),
+    validation.validateParamsId,
+    client.sendResponse);
 
 var companyRouter = express.Router();
 companyRouter.put('/signup',
