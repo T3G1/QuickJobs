@@ -41,7 +41,7 @@ exports.createProposal = function(req, res, next){
                 startTime: req.body.startTime,
                 endTime: req.body.endTime,
                 clientId: req.user.id,
-                categoryId: req.body.categoryId,
+                category: req.body.category,
                 hiddenText: req.body.hiddenText
             };
             connection.query('INSERT INTO proposals SET ?', proposal, function (err, result) {
@@ -66,7 +66,7 @@ exports.getAllProposals = function(req, res, next){
             next({message: 'Cannot get proposal list, please try again later'});
         } else {
             connection.query('SELECT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
-                'proposals.startTime, proposals.endTime, proposals.categoryId, proposals.inProgress FROM proposals, clients ' +
+                'proposals.startTime, proposals.endTime, proposals.category, proposals.inProgress FROM proposals, clients ' +
                 'WHERE proposals.clientId = clients.id', function (err, rows) {
                 if (err) {
                     logger.error(err);
@@ -98,7 +98,7 @@ exports.getProposal = function(req, res, next){
                     if (clients.find(function(client){return client.clientId == req.user.id})){
                         hiddenText = ', proposals.hiddenText';
                     }
-                    connection.query('SELECT id, description, price, startTime, endTime, categoryid, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
+                    connection.query('SELECT id, description, price, startTime, endTime, category, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
                         req.params.id, function (err, proposal) {
                         if (err) {
                             logger.error(err);
@@ -159,13 +159,13 @@ exports.chooseCandidate = function(req, res, next){
                                         connection.release();
                                     });
                                 } else {
-                                    next({message: 'There already is a chosen candidate for this proposal'});
+                                    res.status(400).json({error: 'There already is a chosen candidate for this proposal'});
                                     connection.release();
                                 }
                             }
                         });
                     } else{
-                        next({message: 'You don\'t own this proposal'});
+                        res.status(400).json({error: 'You don\'t own this proposal'});
                         connection.release();
                     }
                 }
@@ -199,7 +199,7 @@ exports.revertCandidateChoice = function(req, res, next){
                             connection.release();
                         });
                     } else {
-                        next({message: 'You don\'t own this proposal'});
+                        res.status(400).json({error: 'You don\'t own this proposal'});
                         connection.release();
                     }
                 }
@@ -233,7 +233,7 @@ exports.sendResponse = function(req, res, next){
                             connection.release();
                         });
                     } else{
-                        next({message: 'There already is a response for this proposal'});
+                        res.status(400).json({error: 'There already is a response for this proposal'});
                         connection.release();
                     }
                 }
@@ -268,7 +268,7 @@ exports.closeAndRate = function(req, res, next){
                             connection.release();
                         });
                     } else {
-                        next({message: 'You don\'t own this proposal'});
+                        res.status(400).json({error: 'You don\'t own this proposal'});
                         connection.release();
                     }
                 }
