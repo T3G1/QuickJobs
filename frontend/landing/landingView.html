@@ -1,1 +1,48 @@
-LANDING
+<!DOCTYPE html>
+<html lang="en" ng-app="quickJobs">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickJob</title>
+    <link rel="stylesheet" href="../common/styles.css">
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../app.js"></script>
+</head>
+<body ng-controller="landingController">
+<a href="../list/listView.html">See proposals list</a>
+<a href="../login/loginView.html">Log in/Sign up</a>
+<div id="proposal">
+    <form name="proposal">
+        <label>E-mail</label>
+        <input type="email" name="e-mail" required/>
+        <label>Password</label>
+        <input type="password" name="pass1" required/>
+        <label>header</label>
+        <input type="text" name="header" required/>
+        <label>description</label>
+        <textarea></textarea>
+        <label> payment</label>
+        <input type="text" name=" payment" required/>
+        <label>Category</label>
+        <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        <label>Start date</label>
+        <input type="date" name="start-date"/>
+        <label>end date</label>
+        <input type="date" name="end-date"/>
+        <label>Region</label>
+        <input type="text" name="region" required/>
+        <lable>Contact/adress</lable>
+        <textarea></textarea>
+        <button>Send</button>
+    </form>
+</div>
+
+</body>
+
+
+</html>
