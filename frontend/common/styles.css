@@ -1,3 +1,71 @@
+
+body{
+    background: #ccc;
+}
+.login .container,
+.landingView .container {
+    background: #fff;
+    height: 100vh;
+}
+.login .center-align {
+    text-align: center;
+}
+.landingView h3 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+.landingView button,
+.login button {
+    margin: 20px;
+}
+.landingView form,
+.login form {
+    background: #fff;
+    padding: 20px 0;
+}
+
+.landingView form button {
+    display: block;
+    margin: 20px auto;
+}
+.login form button {
+    display: block;
+    margin: 20px;
+}
+.landingView form input,
+.landingView form label,
+.landingView form textarea,
+.login form ui-select,
+.login form input,
+.login form label,
+.login form textarea,
+.login form ui-select {
+    display: block;
+    width: 300px;
+    margin: auto;
+}
+.landingView form .dates {
+    display: block;
+    width: 300px;
+    margin: auto;
+}
+.landingView form input.date {
+    width: 48%;
+    display: inline-block;
+}
+.landingView form input.date:last-child {
+    margin-left: 2%;
+}
+.landingView form label,
+.login form label {
+    font-size: 0.9em;
+    color: #666;
+    padding: 10px 0;
+}
+
 .rating-container{
     font-size: 20px;
+}
+.navbar-brand{
+    color: red !important;
 }

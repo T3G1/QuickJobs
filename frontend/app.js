@@ -56,5 +56,9 @@ angular.module('quickJobs', [
         function($scope, $location) {
             $scope.changeView = function(view){
                 $location.path(view);
+            };
+
+            $scope.currentMenuIsActive = function(menu) {
+                return $location.path().replace(/^\/|\/$/g, '') == menu;
             }
         }]);

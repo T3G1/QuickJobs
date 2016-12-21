@@ -2,26 +2,40 @@
 <html lang="en" ng-app="quickJobs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=700, initial-scale=1"/>
     <title>QuickJob - Log in</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../common/styles.css">
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/angular/angular.min.js"></script>
-    <script src="../app.js"></script>
 </head>
-<body ng-controller="loginController">
-<a href="../list/listView.html">See proposals list</a>
-<a href="../landing/landingView.html">Create proposal</a>
-<div>
-    <form name="log-in">
-        <label>E-mail</label>
-        <input type="email" name="e-mail" required/>
-        <label>Password</label>
-        <input type="password" name="pass1" required/>
-        <button>Log in</button>
-        <button>Sign up</button>
-    </form>
+<body ng-controller="loginController" class="login">
+<div class="container">
+    <div class="col-lg-3 col-lg-offset-2">
+        <a href="../list/listView.html">See proposals list</a>
+    </div>
+    <div class="col-lg-2 col-lg-offset-8">
+        <button class="btn btn-sm" href="../landing/landingView.html">Create proposal</button>
+    </div>
+    <div  class="col-lg-8 col-lg-offset-2">
+        <form name="log-in">
+            <label>E-mail</label>
+            <input type="email" name="e-mail" required/>
+            <label>Password</label>
+            <input type="password" name="pass1" required/>
+            <div class="center-align">
+                <div class="btn-group">
+                    <button class="btn btn-sm">Log in</button>
+                    <button class="btn btn-sm">Sign up</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../app.js"></script>
+<script src="loginController.js"></script>
+<script src="loginService.js"></script>
 </body>
 
 
