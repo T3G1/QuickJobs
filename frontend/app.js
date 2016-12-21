@@ -32,6 +32,31 @@ angular.module('quickJobs', [
         });
     }])
 
+    .run(['$rootScope', function($rootScope){
+        $rootScope.categories = [
+            {
+                name: 'Educational',
+                subcategories: ['Tutors']
+            },
+            {
+                name: 'Household',
+                subcategories: ['House maintenance', 'Cleaning', 'Walking pets', 'Babysitting']
+            },
+            {
+                name: 'Carriage',
+                subcategories: ['Auto rental', 'Mover', 'Designated driver']
+            },
+            {
+                name: 'Business',
+                subcategories: ['Accountance/Bookkeeping', 'Legal advice']
+            },
+            {
+                name: 'Cars',
+                subcategories: ['Car wash', 'Utilities', 'Body repair', 'Custom vehicles repair']
+            }
+        ];
+    }])
+
 
     .controller('quickJobsController', ['$scope', '$location',
         function($scope, $location) {
