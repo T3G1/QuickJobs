@@ -11,5 +11,35 @@ angular.module('quickJobs.list', ['ngRoute'])
 
     .controller('listController', ['$scope', 'listService',
         function($scope, listService) {
-            $scope.proposals = [{name: 'haha'}]
+            $scope.proposals = [
+                {
+                    date: '1',
+                    name: '222222222',
+                    description: '3',
+                    category: '4',
+                    cost: '5',
+                    region: '6'
+                },{
+                    date: '1',
+                    name: '222222222',
+                    description: '3',
+                    category: '4',
+                    cost: '5',
+                    region: '6'
+                },{
+                    date: '1',
+                    name: '222222222',
+                    description: '3',
+                    category: '4',
+                    cost: '5',
+                    region: '6'
+                },{
+                    date: '1',
+                    name: '222222222',
+                    description: '3',
+                    category: '4',
+                    cost: '5',
+                    region: '6'
+                }
+            ]
         }]);
