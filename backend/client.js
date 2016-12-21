@@ -18,7 +18,6 @@ exports.signup = function(req, res, next) {
                 password: req.body.password,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
-                middlename: req.body.middlename,
                 phonenum: req.body.phonenum
             };
             connection.query('INSERT INTO clients SET ?', client, function (err, result) {
@@ -26,7 +25,39 @@ exports.signup = function(req, res, next) {
                     logger.error(err);
                     next({message: 'Can not create new user'});
                 } else {
-                    logger.info('User was created successfully', result);
+                    logger.info('Client was created successfully', result);
+                    res.end();
+                }
+                connection.release();
+            });
+        }
+    });
+};
+
+exports.createRequest = function(req, res, next){
+    logger.debug('create request API, user email %s', req.user.email);
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot create a request, please try again later'});
+        } else {
+            var request = {
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price,
+                haggle: req.body.haggle,
+                executor: req.body.executor,
+                startTime: req.body.startTime,
+                endTime: req.body.endTime,
+                clientId: req.user.id,
+                categoryId: req.body.categoryId
+            };
+            connection.query('INSERT INTO requests SET ?', request, function (err, result) {
+                if (err) {
+                    logger.error(err);
+                    next({message: 'Can not create new request'});
+                } else {
+                    logger.info('Request was created successfully', result);
                     res.end();
                 }
                 connection.release();
