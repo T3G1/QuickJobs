@@ -11,5 +11,5 @@ angular.module('quickJobs.list', ['ngRoute'])
 
     .controller('listController', ['$scope', 'listService',
         function($scope, listService) {
-            console.log('list')
+            $scope.proposals = [{name: 'haha'}]
         }]);
