@@ -22,12 +22,39 @@ angular.module('quickJobs', [
     'quickJobs.proposal'
 ])
     .config(['$routeProvider', '$httpProvider', '$locationProvider', function($routeProvider, $httpProvider, $locationProvider) {
-        $routeProvider.otherwise({redirectTo: '/login'});
+        $locationProvider.hashPrefix('!');
+
+        $routeProvider.otherwise({redirectTo: '/landing'});
 
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
+    }])
+
+    .run(['$rootScope', function($rootScope){
+        $rootScope.categories = [
+            {
+                name: 'Educational',
+                subcategories: ['Tutors']
+            },
+            {
+                name: 'Household',
+                subcategories: ['House maintenance', 'Cleaning', 'Walking pets', 'Babysitting']
+            },
+            {
+                name: 'Carriage',
+                subcategories: ['Auto rental', 'Mover', 'Designated driver']
+            },
+            {
+                name: 'Business',
+                subcategories: ['Accountance/Bookkeeping', 'Legal advice']
+            },
+            {
+                name: 'Cars',
+                subcategories: ['Car wash', 'Utilities', 'Body repair', 'Custom vehicles repair']
+            }
+        ];
     }])
 
 

@@ -57,7 +57,7 @@ CREATE TABLE `clients` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'tzattog@yahoo.co.uk','Kappa123'),(2,'test@user.com','121212');
+INSERT INTO `clients` VALUES (1,'tzattog@yahoo.co.uk','Kappa123'),(2,'test@user.com','121212'),(3,'test@test.test','test123');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,17 +84,15 @@ CREATE TABLE `proposals` (
   `price` float NOT NULL,
   `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `endTime` timestamp NULL DEFAULT NULL,
-  `categoryId` int(11) NOT NULL,
+  `category` varchar(63) NOT NULL,
   `hiddenText` text,
   `clientId` int(11) NOT NULL,
   `inProgress` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
-  KEY `fkCategoryId_idx` (`categoryId`),
-  CONSTRAINT `fkCategoryId` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fkClientId` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +101,7 @@ CREATE TABLE `proposals` (
 
 LOCK TABLES `proposals` WRITE;
 /*!40000 ALTER TABLE `proposals` DISABLE KEYS */;
-INSERT INTO `proposals` VALUES (1,'Need help ASAP','Description',125,'2016-12-21 18:07:59','2016-12-31 21:01:01',1,NULL,1,0),(2,'Some test task','Desc',123,'2016-12-21 18:07:59',NULL,1,NULL,2,0);
+INSERT INTO `proposals` VALUES (1,'Need help ASAP','Description',125,'2016-12-21 20:49:27','2016-12-31 21:01:01','general',NULL,1,0),(2,'Some test task','Desc',123,'2016-12-21 20:49:27',NULL,'general',NULL,2,1),(3,'Serious Job','Description',100,'2016-12-21 20:49:27',NULL,'general','Top secret, unwatch immediately!',3,1);
 /*!40000 ALTER TABLE `proposals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,6 +115,7 @@ DROP TABLE IF EXISTS `responses`;
 CREATE TABLE `responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `proposalId` int(11) NOT NULL,
+  `chosen` tinyint(4) DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `clientId` int(11) DEFAULT NULL,
   `rating` float DEFAULT NULL,
@@ -127,7 +126,7 @@ CREATE TABLE `responses` (
   KEY `fkProposal_idx` (`proposalId`),
   CONSTRAINT `fkClient` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fkProposal` FOREIGN KEY (`proposalId`) REFERENCES `proposals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +135,7 @@ CREATE TABLE `responses` (
 
 LOCK TABLES `responses` WRITE;
 /*!40000 ALTER TABLE `responses` DISABLE KEYS */;
-INSERT INTO `responses` VALUES (1,1,'2016-12-21 14:50:50',1,NULL),(2,1,'2016-12-21 14:50:50',2,NULL),(3,2,'2016-12-21 15:41:32',1,NULL);
+INSERT INTO `responses` VALUES (1,1,1,'2016-12-21 14:50:50',1,4.3),(2,1,0,'2016-12-21 14:50:50',2,NULL),(3,2,0,'2016-12-21 15:41:32',1,NULL),(10,3,0,'2016-12-21 20:23:43',1,NULL);
 /*!40000 ALTER TABLE `responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,6 +160,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` VALUES ('8CuKID9lkW4-q0UD7bw5RSvd-9MrTzvd','{\"cookie\":{\"originalMaxAge\":false,\"expires\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":{\"id\":1}}}',0);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,4 +202,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 21:21:50
+-- Dump completed on 2016-12-21 23:52:25

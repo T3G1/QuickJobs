@@ -11,12 +11,25 @@ exports.validateProposal = function(req, res, next) {
     req.checkBody('price','Price is not valid').notEmpty().isFloat();
     req.checkBody('startTime','Start time is not valid').notEmpty().isDate();
     req.checkBody('endTime','End time is not valid').optional().isDate();
-    req.checkBody('categoryId','Category id is not valid').notEmpty().isInt();
+    req.checkBody('category','Category is not valid').notEmpty().isLength({max: 63});
     returnErrors(req, res, next);
 };
 
 exports.validateParamsId = function(req, res, next) {
     req.checkParams('id','Id is not valid').notEmpty().isInt();
+    returnErrors(req, res, next);
+};
+
+exports.validateCandidate = function(req, res, next) {
+    req.checkBody('proposalId','ProposalId is not valid').notEmpty().isInt();
+    req.checkBody('responseId','ResponseId is not valid').notEmpty().isInt();
+    returnErrors(req, res, next);
+};
+
+exports.validateRating = function(req, res, next) {
+    req.checkBody('rating','Rating is not valid').notEmpty().isFloat({min: 0, max: 5});
+    req.checkBody('proposalId','ProposalId is not valid').notEmpty().isInt();
+    req.checkBody('responseId','ResponseId is not valid').notEmpty().isInt();
     returnErrors(req, res, next);
 };
 
