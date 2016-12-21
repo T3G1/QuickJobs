@@ -82,7 +82,7 @@ exports.getAllProposals = function(req, res, next){
 };
 
 exports.getProposal = function(req, res, next){
-    logger.debug('get proposals API, proposal id %s', req.params.id);
+    logger.debug('get proposal API, proposal id %s', req.params.id);
     db.getConnection(function(err, connection){
         if(err) {
             logger.error(err);
@@ -127,6 +127,87 @@ exports.getProposal = function(req, res, next){
     });
 };
 
+exports.chooseCandidate = function(req, res, next){
+    logger.debug('choose candidate API, user email %s', req.user.email);
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot choose candidate, please try again later'});
+        } else {
+            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {
+                if (err) {
+                    logger.error(err);
+                    connection.release();
+                    next({message: 'Cannot choose candidate'});
+                } else {
+                    if (owner[0].clientId == req.user.id){
+                        connection.query('SELECT chosen FROM responses WHERE proposalId = ?', req.body.proposalId, function (err, chosen) {
+                            if (err) {
+                                logger.error(err);
+                                connection.release();
+                                next({message: 'Cannot choose candidate'});
+                            } else {
+                                if (!chosen.find(function (elem) { return elem.chosen == 1;})) {
+                                    connection.query('UPDATE responses SET chosen = 1 WHERE id = ?', req.body.responseId, function (err, result) {
+                                        if (err) {
+                                            logger.error(err);
+                                            next({message: 'Cannot choose candidate'});
+                                        } else {
+                                            logger.info('Candidate was chosen successfully', result);
+                                            res.end();
+                                        }
+                                        connection.release();
+                                    });
+                                } else {
+                                    next({message: 'There already is a chosen candidate for this proposal'});
+                                    connection.release();
+                                }
+                            }
+                        });
+                    } else{
+                        next({message: 'You don\'t own this proposal'});
+                        connection.release();
+                    }
+                }
+            });
+        }
+    });
+};
+
+exports.revertCandidateChoice = function(req, res, next){
+    logger.debug('revert candidate choice API, user email %s', req.user.email);
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot revert candidate choice, please try again later'});
+        } else {
+            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {
+                if (err) {
+                    logger.error(err);
+                    connection.release();
+                    next({message: 'Cannot revert candidate choice'});
+                } else {
+                    if (owner[0].clientId == req.user.id){
+                        connection.query('UPDATE responses SET chosen = 0 WHERE id = ?', req.body.responseId, function (err, result) {
+                            if (err) {
+                                logger.error(err);
+                                next({message: 'Cannot revert candidate choice'});
+                            } else {
+                                logger.info('Candidate choice was reverted successfully', result);
+                                res.end();
+                            }
+                            connection.release();
+                        });
+                    } else {
+                        next({message: 'You don\'t own this proposal'});
+                        connection.release();
+                    }
+                }
+            });
+        }
+    });
+};
+
 exports.sendResponse = function(req, res, next){
     logger.debug('send response API, user email %s', req.user.email);
     db.getConnection(function(err, connection){
@@ -134,15 +215,63 @@ exports.sendResponse = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot send response, please try again later'});
         } else {
-            connection.query('INSERT INTO responses SET proposalId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
+            connection.query('SELECT * FROM responses WHERE proposalId = ?', req.params.id, function (err, responses) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot get proposals'});
+                    connection.release();
+                    next({message: 'Cannot create new proposal'});
                 } else {
-                    logger.info('Response was sent successfully', result);
-                    res.end();
+                    if (!responses.find(function(response){ return response.clientId == req.user.id})){
+                        connection.query('INSERT INTO responses SET proposalId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
+                            if (err) {
+                                logger.error(err);
+                                next({message: 'Cannot get proposals'});
+                            } else {
+                                logger.info('Response was sent successfully', result);
+                                res.end();
+                            }
+                            connection.release();
+                        });
+                    } else{
+                        next({message: 'There already is a response for this proposal'});
+                        connection.release();
+                    }
                 }
-                connection.release();
+            });
+        }
+    });
+};
+
+exports.closeAndRate = function(req, res, next){
+    logger.debug('close&rate API, user email %s', req.user.email);
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot close proposal, please try again later'});
+        } else {
+            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {
+                if (err) {
+                    logger.error(err);
+                    connection.release();
+                    next({message: 'Cannot choose candidate'});
+                } else {
+                    if (owner[0].clientId == req.user.id) {
+                        connection.query('UPDATE responses, proposals SET proposals.inProgress = 0, responses.rating = ? WHERE proposals.id = ? AND responses.id = ?',
+                            [req.body.rating, req.body.proposalId, req.body.responseId], function (err, result) {
+                            if (err) {
+                                logger.error(err);
+                                next({message: 'Cannot close proposal'});
+                            } else {
+                                logger.info('Response was sent successfully', result);
+                                res.end();
+                            }
+                            connection.release();
+                        });
+                    } else {
+                        next({message: 'You don\'t own this proposal'});
+                        connection.release();
+                    }
+                }
             });
         }
     });

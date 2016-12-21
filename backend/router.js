@@ -17,6 +17,15 @@ clientRouter.get('/all-proposals',
 clientRouter.post('/send-response/:id',
     validation.validateParamsId,
     client.sendResponse);
+clientRouter.post('/choose-candidate',
+    validation.validateCandidate,
+    client.chooseCandidate);
+clientRouter.post('/revert-candidate-choice',
+    validation.validateCandidate,
+    client.revertCandidateChoice);
+clientRouter.post('/close-and-rate',
+    validation.validateRating,
+    client.closeAndRate);
 
 var userRouter = express.Router();
 userRouter.get('/current-user',

@@ -20,6 +20,19 @@ exports.validateParamsId = function(req, res, next) {
     returnErrors(req, res, next);
 };
 
+exports.validateCandidate = function(req, res, next) {
+    req.checkBody('proposalId','ProposalId is not valid').notEmpty().isInt();
+    req.checkBody('responseId','ResponseId is not valid').notEmpty().isInt();
+    returnErrors(req, res, next);
+};
+
+exports.validateRating = function(req, res, next) {
+    req.checkBody('rating','Rating is not valid').notEmpty().isFloat({min: 0, max: 5});
+    req.checkBody('proposalId','ProposalId is not valid').notEmpty().isInt();
+    req.checkBody('responseId','ResponseId is not valid').notEmpty().isInt();
+    returnErrors(req, res, next);
+};
+
 function returnErrors(req, res, next) {
     var errors = req.validationErrors(true);
     if(errors) {
