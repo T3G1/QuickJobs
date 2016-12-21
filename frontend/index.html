@@ -23,30 +23,50 @@
     <base href="/">
     <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.ico"/>
 
-    <link href="bower_components/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="bower_components/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="common/styles.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body ng-controller="quickJobsController">
 
-<nav class="main-controls">
-    <a href="" ng-click="changeView('landing')">
-        <span>landing</span>
-    </a>
-    <br>
-    <a href="" ng-click="changeView('list')">
-        <span>list</span>
-    </a>
-    <br>
-    <a href="" ng-click="changeView('login')">
-        <span>login</span>
-    </a>
-    <br>
-    <a href="" ng-click="changeView('proposal')">
-        <span>proposal</span>
-    </a>
-</nav>
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">QuickJobs</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{'active': currentMenuIsActive('landing')}">
+                        <a href="" ng-click="changeView('landing')">
+                            <span>Make Proposal</span>
+                        </a>
+                    </li>
+
+                    <li ng-class="{'active': currentMenuIsActive('list')}">
+                        <a href="" ng-click="changeView('list')">
+                            <span>All Proposals</span>
+                        </a>
+                    </li>
+
+                    <li ng-class="{'active': currentMenuIsActive('login')}">
+                        <a href="" ng-click="changeView('login')">
+                            <span>Login/Signup</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
 <div ng-if="isLoggedIn && companyId" bootstrap-tabs company-name="{{companyName}}" class="main-tabs"></div>
 
