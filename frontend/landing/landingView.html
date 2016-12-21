@@ -2,45 +2,52 @@
 <html lang="en" ng-app="quickJobs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=700, initial-scale=1"/>
     <title>QuickJob</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../common/styles.css">
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/angular/angular.min.js"></script>
-    <script src="../app.js"></script>
 </head>
-<body ng-controller="landingController">
-<a href="../list/listView.html">See proposals list</a>
-<a href="../login/loginView.html">Log in/Sign up</a>
-<div id="proposal">
-    <form name="proposal">
-        <label>E-mail</label>
-        <input type="email" name="e-mail" required/>
-        <label>Password</label>
-        <input type="password" name="pass1" required/>
-        <label>header</label>
-        <input type="text" name="header" required/>
-        <label>description</label>
-        <textarea></textarea>
-        <label> payment</label>
-        <input type="text" name=" payment" required/>
-        <label>Category</label>
-        <select>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-        </select>
-        <label>Start date</label>
-        <input type="date" name="start-date"/>
-        <label>end date</label>
-        <input type="date" name="end-date"/>
-        <label>Region</label>
-        <input type="text" name="region" required/>
-        <lable>Contact/adress</lable>
-        <textarea></textarea>
-        <button>Send</button>
-    </form>
+<body ng-controller="landingController" class="landingView">
+<div class="container">
+    <a href="../list/listView.html">See proposals list</a>
+    <button href="../login/loginView.html" class="btn btn-sm">Log in/Sign up</button>
+    <div class="col-lg-8 col-lg-offset-2">
+        <form name="proposal">
+            <h3>Create proposal</h3>
+            <label>E-mail</label>
+            <input type="email" name="e-mail" required/>
+            <label>Password</label>
+            <input type="password" name="pass1" required/>
+            <label>header</label>
+            <input type="text" name="header" required/>
+            <label>description</label>
+            <textarea></textarea>
+            <label>Price</label>
+            <input type="text" name="price" required/>
+            <label>Category</label>
+            <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+            <label>Dates</label>
+            <div class="dates">
+                <input type="date" name="start-date" class="date"/>
+                <input type="date" name="end-date" class="date"/>
+            </div>
+            <label>Region</label>
+            <input type="text" name="region" required/>
+            <label>Contact/adress</label>
+            <textarea></textarea>
+            <button class="btn btn-sm">Send</button>
+        </form>
+    </div>
 </div>
+
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../app.js"></script>
 
 </body>
 

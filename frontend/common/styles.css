@@ -1,3 +1,42 @@
 body{
     background: #ccc;
 }
+.landingView h3 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+.landingView button {
+    display: block;
+    margin: 20px auto;
+}
+
+.landingView form {
+    background: #fff;
+    padding: 20px 0;
+}
+
+.landingView form input,
+.landingView form label,
+.landingView form textarea,
+.landingView form select {
+    display: block;
+    width: 300px;
+    margin: auto;
+}
+.landingView form .dates {
+    display: block;
+    width: 300px;
+    margin: auto;
+}
+.landingView form input.date {
+    width: 48%;
+    display: inline-block;
+}
+.landingView form input.date:last-child {
+    margin-left: 2%;
+}
+.landingView form label {
+    font-size: 0.9em;
+    color: #666;
+    padding: 10px 0;
+}
