@@ -66,3 +66,6 @@ body{
 .rating-container{
     font-size: 20px;
 }
+.navbar-brand{
+    color: red !important;
+}

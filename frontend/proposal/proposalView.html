@@ -1,11 +1,12 @@
 <div class="container">
+    <a href="" ng-click="changeView('list')">< go back </a>
     <h1>Proposal</h1>
 
     <div class="panel">
         <blockquote>
             <div class="row">
                 <div class="col-sm-7">
-                    <label for="">Name:</label> <a href="" ng-click="changeView('proposal')">{{proposal.name}}</a>
+                    <label for="">Name:</label> {{proposal.name}}
                 </div>
 
                 <div class="col-sm-3">
@@ -43,8 +44,23 @@
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-success">Response</button>
                     <button type="button" class="btn btn-danger">Delete Proposal</button>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul>
+                        <li>Quality of the rendered service</li>
+                        <li>Relevance of the price</li>
+                        <li>Speed of service execution</li>
+                        <li>Speed of response</li>
+                    </ul>
+
+                    <input id="input-id" type="text" class="rating" data-size="lg">
+
                     <button type="button" class="btn btn-warning">Finish and Rate Candidate</button>
-                    <input id="input-id" type="text" class="rating" data-size="lg" >
                 </div>
             </div>
         </blockquote>
