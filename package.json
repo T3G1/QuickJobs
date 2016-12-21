@@ -15,5 +15,19 @@
   "bugs": {
     "url": "https://github.com/T3G1/QuickJobs/issues"
   },
-  "homepage": "https://github.com/T3G1/QuickJobs#readme"
+  "homepage": "https://github.com/T3G1/QuickJobs#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "connect-mysql": "^2.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "express-validator": "^3.1.1",
+    "mysql": "^2.12.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "validator": "^6.2.0",
+    "winston": "^2.3.0"
+  }
 }
