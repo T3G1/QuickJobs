@@ -1,0 +1,100 @@
+<!--
+  Copyright 2015 mifort.org
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html lang="en" ng-app="quickJobs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=700, initial-scale=1"/>
+    <title ng-bind="companyName + ' Timesheet'">QuickJobs</title>
+    <base href="/">
+    <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.ico"/>
+
+    <link rel="stylesheet" href="common/styles.css">
+</head>
+
+<body ng-class="{'intro-active': introIsActive}">
+
+<div class="page-loading" ng-if="!isNotLoggedIn && !isLoggedIn">
+    <img src="common/images/animation-wait.gif" alt=""/>
+</div>
+
+<nav class="main-controls">
+    <a class="logo" href="">
+    </a>
+
+    <a href="landing">
+        <span>landing</span>
+    </a>
+    <br>
+    <a href="list">
+        <span>list</span>
+    </a>
+    <br>
+    <a href="login">
+        <span>login</span>
+    </a>
+    <br>
+    <a href="proposal">
+        <span>proposal</span>
+    </a>
+</nav>
+
+<div ng-if="isLoggedIn && companyId" bootstrap-tabs company-name="{{companyName}}" class="main-tabs"></div>
+
+<div class="main-container" ng-view>123</div>
+
+
+<!-- build:js scripts/vendors.min.js -->
+<!--JS libraries-->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/angular-moment/angular-moment.min.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<script src="bower_components/angular-click-outside/clickoutside.directive.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="bower_components/ng-bs-daterangepicker/dist/ng-bs-daterangepicker.min.js"></script>
+<script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+<script src="bower_components/ui-select/dist/select.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/intro.js/minified/intro.min.js"></script>
+<script src="bower_components/angular-intro.js/build/angular-intro.min.js"></script>
+<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/scripts.min.js -->
+<script src="app.js"></script>
+
+<!--Main-->
+<script src="landing/landingController.js"></script>
+<script src="landing/landingService.js"></script>
+
+<script src="list/listController.js"></script>
+<script src="list/listService.js"></script>
+
+<script src="login/loginController.js"></script>
+<script src="login/loginService.js"></script>
+
+<script src="proposal/proposalController.js"></script>
+<script src="proposal/proposalService.js"></script>
+
+</body>
+</html>
