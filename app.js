@@ -45,7 +45,7 @@ app.use(config.prefix, router.versionRouter);
 
 //Angular html5Mode support. Shoud be the last HTTP call
 app.get('/*', function (req, res, next) {
-    res.sendFile('app/index.html', {root: __dirname});
+    res.sendFile('frontend/index.html', {root: __dirname});
 });
 
 // default error handler
