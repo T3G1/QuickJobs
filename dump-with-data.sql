@@ -85,6 +85,7 @@ CREATE TABLE `proposals` (
   `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `endTime` timestamp NULL DEFAULT NULL,
   `category` varchar(63) NOT NULL,
+  `region` varchar(63) NOT NULL,
   `hiddenText` text,
   `clientId` int(11) NOT NULL,
   `inProgress` tinyint(4) NOT NULL DEFAULT '1',
@@ -92,7 +93,7 @@ CREATE TABLE `proposals` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
   CONSTRAINT `fkClientId` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `proposals` (
 
 LOCK TABLES `proposals` WRITE;
 /*!40000 ALTER TABLE `proposals` DISABLE KEYS */;
-INSERT INTO `proposals` VALUES (1,'Need help ASAP','Description',125,'2016-12-21 20:49:27','2016-12-31 21:01:01','general',NULL,1,0),(2,'Some test task','Desc',123,'2016-12-21 20:49:27',NULL,'general',NULL,2,1),(3,'Serious Job','Description',100,'2016-12-21 20:49:27',NULL,'general','Top secret, unwatch immediately!',3,1);
+INSERT INTO `proposals` VALUES (1,'Need help ASAP','Description',125,'2016-12-21 20:49:27','2016-12-31 21:01:01','general','',NULL,1,0),(2,'Some test task','Desc',123,'2016-12-21 20:49:27',NULL,'general','',NULL,2,1),(3,'Serious Job','Description',100,'2016-12-21 20:49:27',NULL,'general','','Top secret, unwatch immediately!',3,1),(4,'Very Serious Job','Description',100,'2016-12-24 18:36:53',NULL,'Legal advice','Minsk, Belarus','Top secret, unwatch immediately!',1,1);
 /*!40000 ALTER TABLE `proposals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +136,7 @@ CREATE TABLE `responses` (
 
 LOCK TABLES `responses` WRITE;
 /*!40000 ALTER TABLE `responses` DISABLE KEYS */;
-INSERT INTO `responses` VALUES (1,1,1,'2016-12-21 14:50:50',1,4.3),(2,1,0,'2016-12-21 14:50:50',2,NULL),(3,2,0,'2016-12-21 15:41:32',1,NULL),(10,3,0,'2016-12-21 20:23:43',1,NULL);
+INSERT INTO `responses` VALUES (1,1,1,'2016-12-21 14:50:50',1,4.3),(2,1,0,'2016-12-21 14:50:50',2,NULL),(3,2,0,'2016-12-21 15:41:32',1,3.2),(10,3,0,'2016-12-21 20:23:43',1,NULL);
 /*!40000 ALTER TABLE `responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,4 +203,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 23:52:25
+-- Dump completed on 2016-12-22  1:46:09

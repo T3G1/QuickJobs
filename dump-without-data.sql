@@ -65,6 +65,7 @@ CREATE TABLE `proposals` (
   `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `endTime` timestamp NULL DEFAULT NULL,
   `category` varchar(63) NOT NULL,
+  `region` varchar(63) NOT NULL,
   `hiddenText` text,
   `clientId` int(11) NOT NULL,
   `inProgress` tinyint(4) NOT NULL DEFAULT '1',
@@ -72,7 +73,7 @@ CREATE TABLE `proposals` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
   CONSTRAINT `fkClientId` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,4 +153,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 23:52:42
+-- Dump completed on 2016-12-22  1:46:26

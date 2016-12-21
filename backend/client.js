@@ -42,6 +42,7 @@ exports.createProposal = function(req, res, next){
                 endTime: req.body.endTime,
                 clientId: req.user.id,
                 category: req.body.category,
+                region: req.body.region,
                 hiddenText: req.body.hiddenText
             };
             connection.query('INSERT INTO proposals SET ?', proposal, function (err, result) {
@@ -66,8 +67,8 @@ exports.getAllProposals = function(req, res, next){
             next({message: 'Cannot get proposal list, please try again later'});
         } else {
             connection.query('SELECT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
-                'proposals.startTime, proposals.endTime, proposals.category, proposals.inProgress FROM proposals, clients ' +
-                'WHERE proposals.clientId = clients.id', function (err, rows) {
+                'proposals.startTime, proposals.endTime, proposals.category, proposals.region, proposals.inProgress FROM proposals, clients ' +
+                'WHERE proposals.clientId = clients.id ORDER BY id DESC', function (err, rows) {
                 if (err) {
                     logger.error(err);
                     next({message: 'Cannot get proposals'});
@@ -88,17 +89,17 @@ exports.getProposal = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot get proposal, please try again later'});
         } else {
-            connection.query('SELECT clientId FROM responses WHERE proposalId = ? AND chosen = 1', req.params.id, function (err, clients) {
+            connection.query('SELECT clientId FROM responses WHERE proposalId = ? AND chosen = 1', req.params.id, function (err, clients) { //TODO: implement transactions
                 if (err) {
                     logger.error(err);
                     connection.release();
                     next({message: 'Cannot get proposal'});
                 } else {
                     var hiddenText = '';
-                    if (clients.find(function(client){return client.clientId == req.user.id})){
+                    if (clients.find(function(client){return client.clientId == req.user.id})){ //TODO: also need to check ownership
                         hiddenText = ', proposals.hiddenText';
                     }
-                    connection.query('SELECT id, description, price, startTime, endTime, category, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
+                    connection.query('SELECT id, description, price, startTime, endTime, category, region, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
                         req.params.id, function (err, proposal) {
                         if (err) {
                             logger.error(err);
@@ -136,7 +137,7 @@ exports.chooseCandidate = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot choose candidate, please try again later'});
         } else {
-            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {
+            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {    //TODO: move ownership check to a separate function
                 if (err) {
                     logger.error(err);
                     connection.release();
@@ -183,7 +184,7 @@ exports.revertCandidateChoice = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot revert candidate choice, please try again later'});
         } else {
-            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {
+            connection.query('SELECT clientId FROM proposals WHERE id = ?', req.body.proposalId, function (err, owner) {    //TODO: move ownership check to a separate function
                 if (err) {
                     logger.error(err);
                     connection.release();
@@ -258,7 +259,7 @@ exports.closeAndRate = function(req, res, next){
                     next({message: 'Cannot choose candidate'});
                 } else {
                     if (owner[0].clientId == req.user.id) {
-                        connection.query('UPDATE responses, proposals SET proposals.inProgress = 0, responses.rating = ? WHERE proposals.id = ? AND responses.id = ?',
+                        connection.query('UPDATE responses, proposals SET proposals.inProgress = 0, responses.rating = ? WHERE proposals.id = ? AND responses.id = ?',  //TODO: check if response actually belongs to proposal
                             [req.body.rating, req.body.proposalId, req.body.responseId], function (err, result) {
                             if (err) {
                                 logger.error(err);
