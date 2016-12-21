@@ -31,7 +31,9 @@ angular.module('quickJobs', [
     }])
 
 
-    .controller('quickJobsController', ['$scope',
-        function($scope) {
-
+    .controller('quickJobsController', ['$scope', '$location',
+        function($scope, $location) {
+            $scope.changeView = function(view){
+                $location.path(view);
+            }
         }]);
