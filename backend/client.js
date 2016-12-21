@@ -105,7 +105,9 @@ exports.getProposal = function(req, res, next){
                             connection.release();
                             next({message: 'Cannot get proposal'});
                         } else {
-                            connection.query('SELECT * FROM responses WHERE proposalId = ?', req.params.id, function (err, responses) {
+                            connection.query('SELECT responses.*, average.rating as averageRating ' +
+                            'FROM responses, (SELECT clientId, ROUND(AVG(rating),2)  as rating FROM responses GROUP BY clientId) as average ' +
+                            'WHERE proposalId = ? AND average.clientId = responses.clientId', req.params.id, function (err, responses) {
                                 if (err) {
                                     logger.error(err);
                                     next({message: 'Cannot get proposal'});

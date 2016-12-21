@@ -23,19 +23,14 @@
     <base href="/">
     <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.ico"/>
 
+    <link href="bower_components/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="common/styles.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body ng-controller="quickJobsController">
 
-<div class="page-loading" ng-if="!isNotLoggedIn && !isLoggedIn">
-    <img src="common/images/animation-wait.gif" alt=""/>
-</div>
-
 <nav class="main-controls">
-    <a class="logo" href=""></a>
-
     <a href="" ng-click="changeView('landing')">
         <span>landing</span>
     </a>
@@ -78,6 +73,8 @@
 <script src="bower_components/angular-intro.js/build/angular-intro.min.js"></script>
 <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/bootstrap-star-rating/js/star-rating.js"></script>
+
 <!-- endbuild -->
 
 <!-- build:js scripts/scripts.min.js -->

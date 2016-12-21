@@ -34,26 +34,20 @@ angular.module('quickJobs', [
 
     .run(['$rootScope', function($rootScope){
         $rootScope.categories = [
-            {
-                name: 'Educational',
-                subcategories: ['Tutors']
-            },
-            {
-                name: 'Household',
-                subcategories: ['House maintenance', 'Cleaning', 'Walking pets', 'Babysitting']
-            },
-            {
-                name: 'Carriage',
-                subcategories: ['Auto rental', 'Mover', 'Designated driver']
-            },
-            {
-                name: 'Business',
-                subcategories: ['Accountance/Bookkeeping', 'Legal advice']
-            },
-            {
-                name: 'Cars',
-                subcategories: ['Car wash', 'Utilities', 'Body repair', 'Custom vehicles repair']
-            }
+            { name: 'Tutors', group: 'Educational'},
+            { name: 'House maintenance', group: 'Household'},
+            { name: 'Cleaning', group: 'Household'},
+            { name: 'Walking pets', group: 'Household'},
+            { name: 'Babysitting', group: 'Household'},
+            { name: 'Auto rental', group: 'Carriage'},
+            { name: 'Mover', group: 'Carriage'},
+            { name: 'Designated driver', group: 'Carriage'},
+            { name: 'Accountance/Bookkeeping', group: 'Business'},
+            { name: 'Legal advice', group: 'Business'},
+            { name: 'Car wash', group: 'Cars'},
+            { name: 'Utilities', group: 'Cars'},
+            { name: 'Body repair', group: 'Cars'},
+            { name: 'Custom vehicles repair', group: 'Cars'}
         ];
     }])
 

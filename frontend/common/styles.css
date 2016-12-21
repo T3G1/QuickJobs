@@ -1,3 +1,4 @@
+
 body{
     background: #ccc;
 }
@@ -60,4 +61,8 @@ body{
     font-size: 0.9em;
     color: #666;
     padding: 10px 0;
+}
+
+.rating-container{
+    font-size: 20px;
 }

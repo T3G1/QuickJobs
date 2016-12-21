@@ -1,1 +1,68 @@
-PROPOSAL
+<div class="container">
+    <h1>Proposal</h1>
+
+    <div class="panel">
+        <blockquote>
+            <div class="row">
+                <div class="col-sm-7">
+                    <label for="">Name:</label> <a href="" ng-click="changeView('proposal')">{{proposal.name}}</a>
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="">Date:</label> {{proposal.date}}
+                </div>
+
+                <div class="col-sm-2">
+                    ${{proposal.cost}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-7"></div>
+
+                <div class="col-sm-3">
+                    <label for="">Category:</label> {{proposal.category}}
+                </div>
+
+                <div class="col-sm-2">
+                    <label for="">Region:</label> {{proposal.region}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="">Description:</label>
+                </div>
+
+                <div class="col-sm-12">
+                    <textarea style="width: 100%; height: 100px;" name="" disabled>{{proposal.description}}</textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-success">Response</button>
+                    <button type="button" class="btn btn-danger">Delete Proposal</button>
+                    <button type="button" class="btn btn-warning">Finish and Rate Candidate</button>
+                    <input id="input-id" type="text" class="rating" data-size="lg" >
+                </div>
+            </div>
+        </blockquote>
+
+        <div class="container">
+            <h1>All Responses</h1>
+
+            <div class="row" ng-repeat="response in responses">
+                <div class="col-sm-12">
+                    {{response.name}}
+
+                    <span ng-repeat="_ in ((_ = []) && (_.length=response.rating) && _) track by $index">&#9733;</span>
+
+                    <label for="">Date: </label> {{response.date}}
+
+                    <button type="button" class="btn btn-success">Choose Candidate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
