@@ -215,15 +215,28 @@ exports.sendResponse = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot send response, please try again later'});
         } else {
-            connection.query('INSERT INTO responses SET proposalId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
+            connection.query('SELECT * FROM responses WHERE proposalId = ?', req.params.id, function (err, responses) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot get proposals'});
+                    connection.release();
+                    next({message: 'Cannot create new proposal'});
                 } else {
-                    logger.info('Response was sent successfully', result);
-                    res.end();
+                    if (!responses.find(function(response){ return response.clientId == req.user.id})){
+                        connection.query('INSERT INTO responses SET proposalId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
+                            if (err) {
+                                logger.error(err);
+                                next({message: 'Cannot get proposals'});
+                            } else {
+                                logger.info('Response was sent successfully', result);
+                                res.end();
+                            }
+                            connection.release();
+                        });
+                    } else{
+                        next({message: 'There already is a response for this proposal'});
+                        connection.release();
+                    }
                 }
-                connection.release();
             });
         }
     });
