@@ -42,102 +42,32 @@ DROP TABLE IF EXISTS `clients`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(127) NOT NULL,
-  `password` varchar(127) NOT NULL,
-  `firstname` varchar(127) DEFAULT NULL,
-  `lastname` varchar(127) DEFAULT NULL,
   `email` varchar(127) NOT NULL,
-  `phonenum` varchar(63) DEFAULT NULL,
+  `password` varchar(127) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `companies`
+-- Table structure for table `proposals`
 --
 
-DROP TABLE IF EXISTS `companies`;
+DROP TABLE IF EXISTS `proposals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `companies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(127) NOT NULL,
-  `password` varchar(127) NOT NULL,
-  `description` text NOT NULL,
-  `site` varchar(127) DEFAULT NULL,
-  `email` varchar(127) NOT NULL,
-  `phonenum` varchar(63) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `title_UNIQUE` (`title`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `company_categories`
---
-
-DROP TABLE IF EXISTS `company_categories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `company_categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyId` int(11) NOT NULL,
-  `categoryId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fkCompanyId_idx` (`companyId`),
-  KEY `fkCategoryId_idx` (`categoryId`),
-  KEY `fkCategories_idx` (`categoryId`),
-  CONSTRAINT `fkCategories` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fkCompanyId` FOREIGN KEY (`companyId`) REFERENCES `companies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `evaluations`
---
-
-DROP TABLE IF EXISTS `evaluations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evaluations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `responseTime` int(11) NOT NULL,
-  `completeTime` int(11) NOT NULL,
-  `quality` int(11) NOT NULL,
-  `comment` text,
-  `responseId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fkResponseId_idx` (`responseId`),
-  CONSTRAINT `fkResponseId` FOREIGN KEY (`responseId`) REFERENCES `responses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `requests`
---
-
-DROP TABLE IF EXISTS `requests`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `requests` (
+CREATE TABLE `proposals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(127) NOT NULL,
   `description` text NOT NULL,
   `price` float NOT NULL,
-  `haggle` tinyint(4) DEFAULT '0',
-  `executor` enum('company','individual','both') NOT NULL,
   `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `endTime` timestamp NULL DEFAULT NULL,
-  `clientId` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
-  `createdTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('in progress','success','failure') NOT NULL DEFAULT 'in progress',
+  `hiddenText` text,
+  `clientId` int(11) NOT NULL,
+  `inProgress` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
@@ -156,17 +86,17 @@ DROP TABLE IF EXISTS `responses`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `requestId` int(11) NOT NULL,
+  `proposalId` int(11) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `clientId` int(11) DEFAULT NULL,
-  `companyId` int(11) DEFAULT NULL,
+  `rating` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
   KEY `fkClient_idx` (`clientId`),
-  KEY `fkCompany_idx` (`companyId`),
+  KEY `fkProposal_idx` (`proposalId`),
   CONSTRAINT `fkClient` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fkCompany` FOREIGN KEY (`companyId`) REFERENCES `companies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fkProposal` FOREIGN KEY (`proposalId`) REFERENCES `proposals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -223,4 +153,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 19:22:38
+-- Dump completed on 2016-12-21 21:22:08

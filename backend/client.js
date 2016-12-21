@@ -3,9 +3,37 @@ var logger = require('./libs/logger');
 var config = require('./libs/config');
 
 var type = 'client';
-exports.type = type;
 
 exports.signup = function(req, res, next) {
+    logger.debug('sign up API, signup email %s', req.body.email.toLowerCase());
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot create an account, please try again later'});
+        } else {
+            var client = {
+                username: req.body.username,
+                email: req.body.email.toLowerCase(),
+                password: req.body.password,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                phonenum: req.body.phonenum
+            };
+            connection.query('INSERT INTO clients SET ?', client, function (err, result) {
+                if (err) {
+                    logger.error(err);
+                    next({message: 'Cannot create new user'});
+                } else {
+                    logger.info('Client was created successfully', result);
+                    res.end();
+                }
+                connection.release();
+            });
+        }
+    });
+};
+
+exports.changePersonalInfo = function(req, res, next) {
     logger.debug('sign up API, signup email %s', req.body.email.toLowerCase());
     db.getConnection(function(err, connection){
         if(err) {

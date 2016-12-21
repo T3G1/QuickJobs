@@ -3,21 +3,16 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var client = require('../client');
-var company = require('../company');
 var logger = require('./logger');
 var validation = require('./validation');
 var config = require('./config');
 
 passport.serializeUser(function(user, done) {
-    done(null, {id: user.id, type: user.type});
+    done(null, {id: user.id});
 });
 
 passport.deserializeUser(function(user, done) {
-    if (user.type == client.type) {
-        client.findById(user.id, done);
-    } else if (user.type == company.type){
-        company.findById(user.id, done);
-    }
+    client.findById(user.id, done);
 });
 
 passport.use(new LocalStrategy({
@@ -29,16 +24,7 @@ passport.use(new LocalStrategy({
     function(req, email, password, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
-            var userType = req.params.userType;
-            var userLibraryToCheck;
-            if (userType == client.type) {
-                userLibraryToCheck = client;
-            } else if (userType == company.type) {
-                userLibraryToCheck = company;
-            } else {
-                return done(null, false);
-            }
-            userLibraryToCheck.findByEmail(email, password, function (err, user) {
+            client.findByEmail(email, password, function (err, user) {
                 if (err) {
                     return done(err);
                 }
@@ -56,7 +42,7 @@ exports.ensureAuthenticated = function(role) {
 
     return function (req, res, next) {
 
-        if (req.isAuthenticated() && (req.user.type == role || !role)){
+        if (req.isAuthenticated()){
             return next();
         }
         res.status(401).json({msg: 'You aren’t authenticated!'});
@@ -74,7 +60,7 @@ exports.init = function(app) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.post(config.prefix + '/:userType/login',
+    app.post(config.prefix + '/login',
         validation.validateUser,
         passport.authenticate('local'),
         function(req, res) {
