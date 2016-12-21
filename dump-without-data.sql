@@ -47,7 +47,7 @@ CREATE TABLE `clients` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,17 +64,15 @@ CREATE TABLE `proposals` (
   `price` float NOT NULL,
   `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `endTime` timestamp NULL DEFAULT NULL,
-  `categoryId` int(11) NOT NULL,
+  `category` varchar(63) NOT NULL,
   `hiddenText` text,
   `clientId` int(11) NOT NULL,
   `inProgress` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fkClientId_idx` (`clientId`),
-  KEY `fkCategoryId_idx` (`categoryId`),
-  CONSTRAINT `fkCategoryId` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fkClientId` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,6 +85,7 @@ DROP TABLE IF EXISTS `responses`;
 CREATE TABLE `responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `proposalId` int(11) NOT NULL,
+  `chosen` tinyint(4) DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `clientId` int(11) DEFAULT NULL,
   `rating` float DEFAULT NULL,
@@ -97,7 +96,7 @@ CREATE TABLE `responses` (
   KEY `fkProposal_idx` (`proposalId`),
   CONSTRAINT `fkClient` FOREIGN KEY (`clientId`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fkProposal` FOREIGN KEY (`proposalId`) REFERENCES `proposals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,4 +152,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 21:22:08
+-- Dump completed on 2016-12-21 23:52:42
