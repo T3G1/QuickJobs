@@ -31,14 +31,14 @@ passport.use(new LocalStrategy({
                 if (!user || user.deleted) {
                     return done(null, false);
                 }
-                logger.info(userType + ' is authenticated. Email:' + email);
+                logger.info('Client is authenticated. Email:' + email);
                 return done(null, user);
             })
         });
     }
 ));
 
-exports.ensureAuthenticated = function(role) {
+exports.ensureAuthenticated = function() {
 
     return function (req, res, next) {
 

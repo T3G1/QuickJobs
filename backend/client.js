@@ -2,8 +2,6 @@ var db = require('./dbConnection');
 var logger = require('./libs/logger');
 var config = require('./libs/config');
 
-var type = 'client';
-
 exports.signup = function(req, res, next) {
     logger.debug('sign up API, signup email %s', req.body.email.toLowerCase());
     db.getConnection(function(err, connection){
@@ -12,12 +10,8 @@ exports.signup = function(req, res, next) {
             next({message: 'Cannot create an account, please try again later'});
         } else {
             var client = {
-                username: req.body.username,
                 email: req.body.email.toLowerCase(),
-                password: req.body.password,
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                phonenum: req.body.phonenum
+                password: req.body.password
             };
             connection.query('INSERT INTO clients SET ?', client, function (err, result) {
                 if (err) {
@@ -33,59 +27,29 @@ exports.signup = function(req, res, next) {
     });
 };
 
-exports.changePersonalInfo = function(req, res, next) {
-    logger.debug('sign up API, signup email %s', req.body.email.toLowerCase());
+exports.createProposal = function(req, res, next){
+    logger.debug('create proposal API, user email %s', req.user.email);
     db.getConnection(function(err, connection){
         if(err) {
             logger.error(err);
-            next({message: 'Cannot create an account, please try again later'});
+            next({message: 'Cannot create a proposal, please try again later'});
         } else {
-            var client = {
-                username: req.body.username,
-                email: req.body.email.toLowerCase(),
-                password: req.body.password,
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                phonenum: req.body.phonenum
-            };
-            connection.query('INSERT INTO clients SET ?', client, function (err, result) {
-                if (err) {
-                    logger.error(err);
-                    next({message: 'Cannot create new user'});
-                } else {
-                    logger.info('Client was created successfully', result);
-                    res.end();
-                }
-                connection.release();
-            });
-        }
-    });
-};
-
-exports.createRequest = function(req, res, next){
-    logger.debug('create request API, user email %s', req.user.email);
-    db.getConnection(function(err, connection){
-        if(err) {
-            logger.error(err);
-            next({message: 'Cannot create a request, please try again later'});
-        } else {
-            var request = {
+            var proposal = {
                 title: req.body.title,
                 description: req.body.description,
                 price: req.body.price,
-                haggle: req.body.haggle,
-                executor: req.body.executor,
                 startTime: req.body.startTime,
                 endTime: req.body.endTime,
                 clientId: req.user.id,
-                categoryId: req.body.categoryId
+                categoryId: req.body.categoryId,
+                hiddenText: req.body.hiddenText
             };
-            connection.query('INSERT INTO requests SET ?', request, function (err, result) {
+            connection.query('INSERT INTO proposals SET ?', proposal, function (err, result) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot create new request'});
+                    next({message: 'Cannot create new proposal'});
                 } else {
-                    logger.info('Request was created successfully', result);
+                    logger.info('Proposal was created successfully', result);
                     res.end();
                 }
                 connection.release();
@@ -94,19 +58,21 @@ exports.createRequest = function(req, res, next){
     });
 };
 
-exports.getMyRequests = function(req, res, next){
-    logger.debug('get my requests API, user email %s', req.user.email);
+exports.getAllProposals = function(req, res, next){
+    logger.debug('get all proposals API, user email %s', req.user.email);
     db.getConnection(function(err, connection){
         if(err) {
             logger.error(err);
-            next({message: 'Cannot get request list, please try again later'});
+            next({message: 'Cannot get proposal list, please try again later'});
         } else {
-            connection.query('SELECT * FROM requests WHERE clientId = ?', req.user.id, function (err, rows) {
+            connection.query('SELECT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
+                'proposals.startTime, proposals.endTime, proposals.categoryId, proposals.inProgress FROM proposals, clients ' +
+                'WHERE proposals.clientId = clients.id', function (err, rows) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot get requests'});
+                    next({message: 'Cannot get proposals'});
                 } else {
-                    logger.info('Request list successfully retrieved!');
+                    logger.info('proposal list successfully retrieved!');
                     res.json(rows);
                 }
                 connection.release();
@@ -115,51 +81,47 @@ exports.getMyRequests = function(req, res, next){
     });
 };
 
-exports.getRequestResponses = function(req, res, next){
-    logger.debug('get requests responses API, request id %s', req.params.id);
+exports.getProposal = function(req, res, next){
+    logger.debug('get proposals API, proposal id %s', req.params.id);
     db.getConnection(function(err, connection){
         if(err) {
             logger.error(err);
-            next({message: 'Cannot get response list, please try again later'});
+            next({message: 'Cannot get proposal, please try again later'});
         } else {
-            connection.query('SELECT responses.clientId, clients.username as clientUsername, clients.firstname as clientFirstname, ' +
-                'clients.lastname as clientLastname, clients.email as clientEmail, clients.phonenum as clientPhonenum, ' +
-                'responses.companyId, companies.title as companyTitle, companies.description as companyDescription, ' +
-                'companies.site as companySite, companies.email as companyEmail, companies.phonenum as companyPhonenum ' +
-                'FROM responses ' +
-                'LEFT JOIN clients ON responses.clientId = clients.id ' +
-                'LEFT JOIN companies ON responses.companyId = companies.id ' +
-                'WHERE responses.requestId = 1', req.user.id, function (err, rows) {
+            connection.query('SELECT clientId FROM responses WHERE proposalId = ? AND chosen = 1', req.params.id, function (err, clients) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot get requests'});
+                    connection.release();
+                    next({message: 'Cannot get proposal'});
                 } else {
-                    logger.info('Request list successfully retrieved!');
-                    res.json(rows);
+                    var hiddenText = '';
+                    if (clients.find(function(client){return client.clientId == req.user.id})){
+                        hiddenText = ', proposals.hiddenText';
+                    }
+                    connection.query('SELECT id, description, price, startTime, endTime, categoryid, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
+                        req.params.id, function (err, proposal) {
+                        if (err) {
+                            logger.error(err);
+                            connection.release();
+                            next({message: 'Cannot get proposal'});
+                        } else {
+                            connection.query('SELECT * FROM responses WHERE proposalId = ?', req.params.id, function (err, responses) {
+                                if (err) {
+                                    logger.error(err);
+                                    next({message: 'Cannot get proposal'});
+                                } else {
+                                    var result = {
+                                        proposal: proposal[0],
+                                        responses: responses
+                                    };
+                                    logger.info('Proposal successfully retrieved!');
+                                    res.json(result);
+                                }
+                                connection.release();
+                            });
+                        }
+                    });
                 }
-                connection.release();
-            });
-        }
-    });
-};
-
-exports.getAllRequests = function(req, res, next){
-    logger.debug('get all requests API, user email %s', req.user.email);
-    db.getConnection(function(err, connection){
-        if(err) {
-            logger.error(err);
-            next({message: 'Cannot get request list, please try again later'});
-        } else {
-            connection.query('SELECT * FROM requests WHERE (endTime > CURRENT_TIMESTAMP OR (endTime is NULL AND startTime > CURRENT_TIMESTAMP)) ' +
-                'AND (executor = "individual" OR executor = "both")', function (err, rows) {
-                if (err) {
-                    logger.error(err);
-                    next({message: 'Cannot get requests'});
-                } else {
-                    logger.info('Request list successfully retrieved!');
-                    res.json(rows);
-                }
-                connection.release();
             });
         }
     });
@@ -172,10 +134,10 @@ exports.sendResponse = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot send response, please try again later'});
         } else {
-            connection.query('INSERT INTO responses SET requestId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
+            connection.query('INSERT INTO responses SET proposalId = ?, clientId = ?', [req.params.id, req.user.id], function (err, result) {
                 if (err) {
                     logger.error(err);
-                    next({message: 'Cannot get requests'});
+                    next({message: 'Cannot get proposals'});
                 } else {
                     logger.info('Response was sent successfully', result);
                     res.end();
@@ -202,9 +164,6 @@ function findClient(query, args, callback){
             connection.query(query, args, function (err, rows) {
                 if (err) {
                     logger.warn('Cannot find user');
-                }
-                if (rows[0]) {
-                    rows[0].type = type;
                 }
                 callback(err, rows[0]);
                 connection.release();

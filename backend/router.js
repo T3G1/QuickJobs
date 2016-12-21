@@ -6,22 +6,15 @@ var authentication = require('./libs/authentication');
 var client = require('./client');
 
 var clientRouter = express.Router();
-clientRouter.put('/create-request',
-    authentication.ensureAuthenticated(client.type),
-    validation.validateRequest,
-    client.createRequest);
-clientRouter.get('/my-requests',
-    authentication.ensureAuthenticated(client.type),
-    client.getMyRequests);
-clientRouter.get('/response/:id',
-    authentication.ensureAuthenticated(client.type),
+clientRouter.put('/create-proposal',
+    validation.validateProposal,
+    client.createProposal);
+clientRouter.get('/proposal/:id',
     validation.validateParamsId,
-    client.getRequestResponses);
-clientRouter.get('/all-requests',
-    authentication.ensureAuthenticated(client.type),
-    client.getAllRequests);
+    client.getProposal);
+clientRouter.get('/all-proposals',
+    client.getAllProposals);
 clientRouter.post('/send-response/:id',
-    authentication.ensureAuthenticated(client.type),
     validation.validateParamsId,
     client.sendResponse);
 
@@ -34,6 +27,6 @@ userRouter.put('/signup',
     client.signup);
 
 var versionRouter = express.Router();
-versionRouter.use(authentication.ensureAuthenticated(), clientRouter);
+versionRouter.use('/client', authentication.ensureAuthenticated(), clientRouter);
 versionRouter.use(userRouter);
 exports.versionRouter = versionRouter;
