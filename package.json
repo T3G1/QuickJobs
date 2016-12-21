@@ -1,0 +1,19 @@
+{
+  "name": "quickjobs",
+  "version": "1.0.0",
+  "description": "\"# QuickJobs\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T3G1/QuickJobs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T3G1/QuickJobs/issues"
+  },
+  "homepage": "https://github.com/T3G1/QuickJobs#readme"
+}
