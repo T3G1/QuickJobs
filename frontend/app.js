@@ -22,7 +22,9 @@ angular.module('quickJobs', [
     'quickJobs.proposal'
 ])
     .config(['$routeProvider', '$httpProvider', '$locationProvider', function($routeProvider, $httpProvider, $locationProvider) {
-        $routeProvider.otherwise({redirectTo: '/login'});
+        $locationProvider.hashPrefix('!');
+
+        $routeProvider.otherwise({redirectTo: '/landing'});
 
         $locationProvider.html5Mode({
             enabled: true,
