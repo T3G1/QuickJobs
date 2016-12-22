@@ -198,6 +198,12 @@
 .ui-select-dropdown {
     top: 2px !important;
     left: 0;
+    z-index: 3;
+    background: #fff;
+    margin-bottom: 5px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.25);
+    padding-right: 10px;
+    position: absolute;
 }
 .ui-select-container[theme=select2].direction-up .ui-select-dropdown {
     z-index: 3;
@@ -213,6 +219,7 @@
     box-shadow: none;
     border-bottom: 1px solid #ccc;
     height: 26px;
+    z-index: 5;
 }
 .ui-select-container a,
 .ui-select-container a:hover,
