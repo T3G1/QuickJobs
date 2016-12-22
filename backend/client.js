@@ -38,10 +38,11 @@ exports.createProposal = function(req, res, next){
                 title: req.body.title,
                 description: req.body.description,
                 price: req.body.price,
-                startTime: req.body.startTime,
-                endTime: req.body.endTime,
+                startTime: new Date(req.body.startTime),
+                endTime: req.body.endTime ? new Date(req.body.endTime) : null,
                 clientId: req.user.id,
                 category: req.body.category,
+                region: req.body.region,
                 hiddenText: req.body.hiddenText
             };
             connection.query('INSERT INTO proposals SET ?', proposal, function (err, result) {
@@ -88,7 +89,7 @@ exports.getProposal = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot get proposal, please try again later'});
         } else {
-            connection.query('SELECT clientId FROM responses WHERE proposalId = ? AND chosen = 1', req.params.id, function (err, clients) {
+            connection.query('SELECT clientId FROM proposals WHERE id = ? UNION SELECT clientId FROM responses WHERE proposalId = ? AND chosen = 1', [req.params.id, req.params.id], function (err, clients) {
                 if (err) {
                     logger.error(err);
                     connection.release();
