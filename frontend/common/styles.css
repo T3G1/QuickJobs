@@ -1,8 +1,17 @@
+.navbar-default {
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    border-bottom: 2px solid #666;
+    background: #fff;
+}
+
 .login .container,
 .landingView .container {
     background: #fff;
     height: 100vh;
 }
+.landingView .center-align,
 .login .center-align {
     text-align: center;
 }
@@ -10,9 +19,16 @@
     text-align: center;
     padding-bottom: 20px;
 }
+.landingView h2 {
+    margin-top: 100px;
+}
 .landingView button,
 .login button {
     margin: 20px;
+}
+.landingView .btn-group :first-child,
+.login .btn-group :first-child {
+    margin-right: 20px;
 }
 .landingView form,
 .login form {
@@ -31,19 +47,19 @@
 .landingView form input,
 .landingView form label,
 .landingView form textarea,
-.login form ui-select,
+.landingView form select,
 .login form input,
-.login form label,
-.login form textarea,
-.login form ui-select {
+.login form label {
     display: block;
-    width: 300px;
+    width: 100%;
     margin: auto;
+}
+.landingView form select {
+    height: 26px;
 }
 .landingView form .dates {
     display: block;
-    width: 300px;
-    margin: auto;
+    width: 100%;
 }
 .landingView form input.date {
     width: 48%;
@@ -56,7 +72,10 @@
 .login form label {
     font-size: 0.9em;
     color: #666;
-    padding: 10px 0;
+    padding: 9px 0;
+}
+.landingView input:-webkit-autofill, .landingView textarea:-webkit-autofill, .landingView select:-webkit-autofill {
+    background-color: #fff !important;
 }
 
 .rating-container{
@@ -65,3 +84,99 @@
 .navbar-brand{
     color: red !important;
 }
+.ADMdtp-container .masterInput input, .ADMdtp-container .masterInput input:focus, .ADMdtp-container .masterInput input:hover {
+    border: 1px solid #999;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 1em;
+    height: 26px;
+    padding: 0; }
+
+.ADMdtp-container .masterInput {
+    width: 100%;
+}
+.ADMdtp-container .masterInput .iconContainer,
+.ADMdtp-container .masterInput .removeIcon {
+    display: none; }
+
+.ADMdtp-container .ADMdtp-calendar-container {
+    width: 17em;
+    height: 22em;
+    height: 23em;
+    font-size: 1em;
+    font-family: Roboto;
+    bottom: 0 !important;
+    top: -23em !important;
+    border-radius: 0;
+    white-space: normal; }
+.ADMdtp-container .ADMdtp-calendar-container header {
+    font-size: 1.1em;
+    font-weight: bold; }
+.ADMdtp-container .ADMdtp-calendar-container .arrow.right:hover,
+.ADMdtp-container .ADMdtp-calendar-container .arrow.left:hover {
+    color: #666; }
+.ADMdtp-container .ADMdtp-calendar-container .daysNames {
+    font-size: 0.8em; }
+.ADMdtp-container .ADMdtp-calendar-container .daysNames > span {
+    color: #666; }
+.ADMdtp-container .ADMdtp-calendar-container .days > span > span.selected {
+    width: 2.4em;
+    height: 2.4em;
+    background: #ff004d !important;
+    border-radius: 0; }
+.ADMdtp-container .ADMdtp-calendar-container .days > span > span:not(.disable):hover {
+    background: #ddd;
+    color: #666;
+    border-radius: 0; }
+.ADMdtp-container .ADMdtp-calendar-container .days > span > span.today:after {
+    border-bottom: 0.7em solid #ff004d; }
+.ADMdtp-container .ADMdtp-calendar-container footer {
+    height: 3em; }
+.ADMdtp-container .ADMdtp-calendar-container footer .calTypeContainer {
+    display: none; }
+.ADMdtp-container .ADMdtp-calendar-container footer .today {
+    color: #666; }
+.ADMdtp-container .ADMdtp-calendar-container footer .timeSelectIcon {
+    fill: #888;
+    margin-left: -10px;
+    left: 50%; }
+.ADMdtp-container .ADMdtp-calendar-container footer .timeSelectIcon:hover {
+    fill: #444; }
+.ADMdtp-container .ADMdtp-calendar-container footer .today {
+    display: none; }
+.ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .timePicker span.dtpIcon svg,
+.ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .timePicker span.dtpIcon svg:hover {
+    fill: #666; }
+.ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .timePicker span.dtpIcon:hover:before {
+    background: #ddd; }
+.ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .calendarIcon:after {
+    border-top: 3em solid #ff004d; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer {
+    background: none; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .calendarIcon:after {
+    border-top: 3em solid #ff004d; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer span > span {
+    background: none;
+    border: none;
+    border-radius: 0; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer span > span.selected {
+    background: #ff004d;
+    color: #fff; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer .yearContainer p:before {
+    padding-top: 5px; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer .yearContainer p:hover, .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer .yearContainer p:hover:before {
+    color: #444;
+    border-color: #444; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer .yearContainer .arrow {
+    font-size: 0.8em;
+    top: -0.3em; }
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer:before,
+.ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer:after {
+    background: none; }
+.ADMdtp-container .ADMdtp-calendar-container .dtpNewBox .calendarIcon:after {
+    border-top: 3em solid #ff004d; }
+/*
+.datepicker {
+    width: 48%;
+    display: inline-block;
+}*/
