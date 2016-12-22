@@ -13,39 +13,7 @@ angular.module('quickJobs.list', ['ngRoute'])
 		function($scope, listService) {
 
 			listService.getList().success(function(data) {
-					console.log(data)
+				$scope.proposals = data;
 				}
 			);
-
-			$scope.proposals = [
-				{
-					date: '1',
-					name: '222222222',
-					description: '3',
-					category: '4',
-					cost: '5',
-					region: '6'
-				}, {
-					date: '1',
-					name: '222222222',
-					description: '3',
-					category: '4',
-					cost: '5',
-					region: '6'
-				}, {
-					date: '1',
-					name: '222222222',
-					description: '3',
-					category: '4',
-					cost: '5',
-					region: '6'
-				}, {
-					date: '1',
-					name: '222222222',
-					description: '3',
-					category: '4',
-					cost: '5',
-					region: '6'
-				}
-			]
 		}]);
