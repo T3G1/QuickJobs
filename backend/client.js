@@ -67,8 +67,8 @@ exports.getAllProposals = function(req, res, next){
             next({message: 'Cannot get proposal list, please try again later'});
         } else {
             connection.query('SELECT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
-                'proposals.startTime, proposals.endTime, proposals.category, proposals.inProgress FROM proposals, clients ' +
-                'WHERE proposals.clientId = clients.id', function (err, rows) {
+                'proposals.startTime, proposals.endTime, proposals.category, proposals.region, proposals.inProgress FROM proposals, clients ' +
+                'WHERE proposals.clientId = clients.id ORDER BY id DESC', function (err, rows) {
                 if (err) {
                     logger.error(err);
                     next({message: 'Cannot get proposals'});
@@ -99,7 +99,7 @@ exports.getProposal = function(req, res, next){
                     if (clients.find(function(client){return client.clientId == req.user.id})){
                         hiddenText = ', proposals.hiddenText';
                     }
-                    connection.query('SELECT id, description, price, startTime, endTime, category, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
+                    connection.query('SELECT id, description, price, startTime, endTime, category, region, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
                         req.params.id, function (err, proposal) {
                         if (err) {
                             logger.error(err);
