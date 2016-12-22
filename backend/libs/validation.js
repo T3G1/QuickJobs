@@ -12,6 +12,7 @@ exports.validateProposal = function(req, res, next) {
     req.checkBody('startTime','Start time is not valid').notEmpty().isDate();
     req.checkBody('endTime','End time is not valid').optional().isDate();
     req.checkBody('category','Category is not valid').notEmpty().isLength({max: 63});
+    req.checkBody('region','Region is not valid').notEmpty().isLength({max: 63});
     returnErrors(req, res, next);
 };
 
