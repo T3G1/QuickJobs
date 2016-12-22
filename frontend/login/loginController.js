@@ -9,15 +9,17 @@ angular.module('quickJobs.login', ['ngRoute'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', '$http', function ($scope, $location, loginService) {
+    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', 'preferences',
+        function ($scope, $location, loginService, $rootScope, preferences) {
 
         $scope.user = {email: undefined, pass: undefined};
         $scope.logIn = function () {
             var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-            loginService.login(data).then(function() {
-                window.location = '/list';
-
-            })
+            loginService.login(data).then(function(data) {
+                preferences.set('user', data.data.currentUser);
+                $rootScope.isLoggedIn = true;
+                $location.path('/list');
+            }, function(error){});
         };
 
         $scope.signUp = function () {

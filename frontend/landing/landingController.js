@@ -49,7 +49,6 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
                         $scope.sendProposal();
                         preferences.set('user', data.data.currentUser);
                         $rootScope.isLoggedIn = true;
-
                     }
                 }, function () {})
             };
