@@ -13,15 +13,29 @@ angular.module('quickJobs.proposal', ['ngRoute'])
         });
     }])
 
-    .controller('proposalController', ['$scope', 'proposalService', '$routeParams',
-        function ($scope, proposalService, $routeParams) {
+    .controller('proposalController', ['$scope', 'proposalService', '$routeParams', 'preferences',
+        function ($scope, proposalService, $routeParams, preferences) {
             var proposalId = $routeParams.id;
+            $scope.currentUser = preferences.get('user');
 
             function updateData() {
                 proposalService.getProposal(proposalId).success(function (data) {
                     $scope.proposal = data.proposal;
                     $scope.responses = data.responses;
+                    isChosenResponse();
                 });
+            }
+
+            function isChosenResponse(){
+                $scope.responseChosen = $scope.responses.find(function(response){
+                    return response.chosen == 1;
+                });
+                if ($scope.responseChosen){
+                    var response = $scope.responses.find(function(response){
+                        return response.rating;
+                    });
+                    $('#input-id').rating('update', response.rating);
+                }
             }
 
             updateData();
@@ -34,6 +48,12 @@ angular.module('quickJobs.proposal', ['ngRoute'])
 
             $scope.chooseCandidate = function (responseId) {
                 proposalService.chooseCandidate(proposalId, responseId).success(function () {
+                    updateData();
+                });
+            };
+
+            $scope.revertCandidateChoice = function (responseId) {
+                proposalService.revertCandidateChoice(proposalId, responseId).success(function () {
                     updateData();
                 });
             };
