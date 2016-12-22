@@ -7,7 +7,8 @@
         </div>
 
         <div class="col-sm-4">
-            <button type="button" class="btn btn-danger pull-right">Delete Proposal</button>
+            <!--<button type="button" class="btn btn-danger pull-right" ng-click="deleteProposal()">Delete Proposal</button>-->
+            <button type="button" class="btn btn-success pull-right" ng-click="response()">Response for Proposal</button>
         </div>
     </div>
 
@@ -49,12 +50,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-success" ng-click="response()">Response for Proposal</button>
-                </div>
-            </div>
-
             <br>
 
             <div class="row">
@@ -85,7 +80,8 @@
 
                     <label for="">Date: </label> {{response.time}}
 
-                    <button type="button" class="btn btn-success" ng-click="chooseCandidate(response.id)">Choose Candidate</button>
+                    <button type="button" class="btn btn-success" ng-if="response.chosen == 0" ng-click="chooseCandidate(response.id)">Choose Candidate</button>
+                    <span ng-if="response.chosen == 1" class="font-green">Chosen!</span>
                 </div>
             </div>
         </div>

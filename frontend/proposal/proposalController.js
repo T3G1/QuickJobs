@@ -39,9 +39,17 @@ angular.module('quickJobs.proposal', ['ngRoute'])
             };
 
             $scope.closeAndRate = function () {
-                var responseId = _.find($scope.responses, {chosen: 1}).id;
+                var response = _.find($scope.responses, {chosen: 1});
 
-                proposalService.closeAndRate(proposalId, responseId, $("#input-id").val()).success(function () {
+                if(response){
+                    proposalService.closeAndRate(proposalId, response.id, $("#input-id").val()).success(function () {
+                        updateData();
+                    });
+                }
+            };
+
+            $scope.deleteProposal = function () {
+                proposalService.closeAndRate(proposalId).success(function () {
                     updateData();
                 });
             };
