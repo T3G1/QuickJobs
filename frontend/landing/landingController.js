@@ -29,55 +29,49 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
                 { name: 'Utilities', group: 'Cars'},
                 { name: 'Body repair', group: 'Cars'},
                 { name: 'Custom vehicles repair', group: 'Cars'}
-            ];
-
+            ],
+                $scope.transformDate = function (viewDate) {
+                if (viewDate != 0) {
+                    var date = viewDate.replace(/\//g, "-").replace(' ', 'T').concat(':00Z');
+                } else {
+                    date = null;
+                }
+                return date;
+            };
             $scope.sendProposal = function () {
                 var data = {
                     "title": $scope.prop.name,
                     "description": $scope.prop.description,
                     "price": $scope.prop.price,
-                    "startTime": landingService.transformDate($scope.prop.startDate),
-                    "endTime": landingService.transformDate($scope.prop.endDate),
+                    "startTime": $scope.transformDate($scope.prop.startDate),
                     "category": $scope.prop.category.name,
                     "region": $scope.prop.region,
                     "hiddenText": $scope.prop.comment
                 };
+                if($scope.transformDate($scope.prop.endDate)) {
+                    data.endTime = $scope.transformDate($scope.prop.endDate);
+                }
                 console.log(data);
+                landingService.createProposal(data);
             };
 
-            $scope.logInd = function () {
+            $scope.logIn = function () {
                 var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-                var req = {
-                    method: 'POST',
-                    url: '/api/client/login',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: data
-                }
-                $http(req).then(function() {
-                    console.log('+');
-                }, function(err) {
-                    console.log ('err');
-                    console.log (err);
-                });
+                landingService.login(data).then(function(){
+                    if ($scope.prop != 0) {
+                        $scope.sendProposal();
+
+                    }
+                })
             };
 
             $scope.signUp = function () {
                 var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-                var req = {
-                    method: 'PUT',
-                    url: '/api/client/signup',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: data
-                }
-                $http(req).then(function() {
-                    console.log('+');
-                }, function(err) {
-                    console.log ('err');
-                    console.log (err);
-                });
+                landingService.signup(data).then(function(){
+                    $scope.logIn()
+                },
+                function(err) {
+                    console.log(err);
+                })
             }
         }]);

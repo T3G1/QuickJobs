@@ -1,23 +1,20 @@
 'use strict';
 
-angular.module('quickJobs.landing').factory('landingService',
-    ['$http', function ($http) {
-        var self = this;
+angular.module('quickJobs.landing')
 
-        self.getFilters = function (companyId) {
-            return $http.get('api/v1/landing/filters/' + companyId);
-        };
+.factory('landingService',
+    ['$http', function($http) {
+        return {
+            signup: function(user) {
+                return $http.put('/api/signup', user);
+            },
 
-        self.transformDate = function (viewDate) {
-            if (viewDate != 0) {
-                var date = viewDate.replace(/\//g, '-');
-                date = date.concat(':00');
-            } else {
-                date = null;
+            login: function(user) {
+                return $http.post('/api/login', user);
+            },
+            createProposal: function(proposal) {
+                return $http.put('/api/client/create-proposal', proposal)
             }
-            return date;
         };
-
-        return self;
     }
     ]);
