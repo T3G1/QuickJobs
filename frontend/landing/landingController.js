@@ -9,28 +9,13 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
         });
     }])
 
-    .controller('landingController', ['$scope', 'landingService', '$http',
-        function($scope, landingService, $http) {
+    .controller('landingController', ['$scope', 'landingService', '$http', '$rootScope', 'preferences', 'Notification',
+        function($scope, landingService, $http, $rootScope, preferences, Notification) {
             console.log('landing');
             $scope.user = {email: undefined, pass: undefined};
             $scope.prop = {};
-            $scope.categories = [
-                { name: 'Tutors', group: 'Educational'},
-                { name: 'House maintenance', group: 'Household'},
-                { name: 'Cleaning', group: 'Household'},
-                { name: 'Walking pets', group: 'Household'},
-                { name: 'Babysitting', group: 'Household'},
-                { name: 'Auto rental', group: 'Carriage'},
-                { name: 'Mover', group: 'Carriage'},
-                { name: 'Designated driver', group: 'Carriage'},
-                { name: 'Accountance/Bookkeeping', group: 'Business'},
-                { name: 'Legal advice', group: 'Business'},
-                { name: 'Car wash', group: 'Cars'},
-                { name: 'Utilities', group: 'Cars'},
-                { name: 'Body repair', group: 'Cars'},
-                { name: 'Custom vehicles repair', group: 'Cars'}
-            ],
-                $scope.transformDate = function (viewDate) {
+            $scope.categories = $rootScope.categories;
+            $scope.transformDate = function (viewDate) {
                 if (viewDate != 0) {
                     var date = viewDate.replace(/\//g, "-").replace(' ', 'T').concat(':00Z');
                 } else {
@@ -52,17 +37,21 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
                     data.endTime = $scope.transformDate($scope.prop.endDate);
                 }
                 console.log(data);
-                landingService.createProposal(data);
+                landingService.createProposal(data).then(function() {
+                    Notification({message: 'Successfully created'}, 'warning');
+                });
             };
 
             $scope.logIn = function () {
                 var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-                landingService.login(data).then(function(){
+                landingService.login(data).then(function(data){
                     if ($scope.prop != 0) {
                         $scope.sendProposal();
+                        preferences.set('user', data.data.currentUser);
+                        $rootScope.isLoggedIn = true;
 
                     }
-                })
+                }, function () {})
             };
 
             $scope.signUp = function () {

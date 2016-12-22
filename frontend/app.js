@@ -15,6 +15,7 @@ angular.module('quickJobs', [
     'ui-notification',
     'angular-intro',
     'angular.filter',
+    'ui-notification',
 
     'quickJobs.landing',
     'quickJobs.list',

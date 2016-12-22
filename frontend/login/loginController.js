@@ -9,42 +9,14 @@ angular.module('quickJobs.login', ['ngRoute'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', '$http', 'preferences', function ($scope, $location, loginService, $rootScope, $http, preferences) {
-        /*$rootScope.isLoggedIn = false;
+    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', '$http', function ($scope, $location, loginService) {
 
-        $scope.user = loginService.getUser().success(function (data) {
-            if(data){
-                preferences.set('user', data);
-
-                if(data.companyId){
-                    $rootScope.companyId = data.companyId;
-                    $location.path('/timesheet');
-                }
-                else{
-                    $location.path('/company-create');
-                }
-
-                $rootScope.isLoggedIn = true;
-            }
-        }).error(function() {
-            $rootScope.isNotLoggedIn = true;
-        });
-
-        $scope.googleLogin = function(){
-            window.location ='/googlelogin';
-        };
-
-        $scope.login = function () {
-            $location.path('/timesheet');
-            $rootScope.isLoggedIn = true;
-        };*/
         $scope.user = {email: undefined, pass: undefined};
         $scope.logIn = function () {
             var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-            loginService.login(data).then(function(data) {
+            loginService.login(data).then(function() {
                 window.location = '/list';
-                preferences.set('user', data.data.currentUser);
-                $rootScope.isLoggedIn = true;
+
             })
         };
 
