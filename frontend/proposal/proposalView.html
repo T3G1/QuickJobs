@@ -1,20 +1,29 @@
 <div class="container">
     <a href="" ng-click="changeView('list')">< go back </a>
-    <h1>Proposal</h1>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Proposal</h1>
+        </div>
+
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-danger pull-right">Delete Proposal</button>
+        </div>
+    </div>
 
     <div class="panel">
         <blockquote>
             <div class="row">
                 <div class="col-sm-7">
-                    <label for="">Name:</label> {{proposal.name}}
+                    <label for="">Name:</label> {{proposal.title}}
                 </div>
 
                 <div class="col-sm-3">
-                    <label for="">Date:</label> {{proposal.date}}
+                    <label for="">Date:</label> {{proposal.startTime}}
                 </div>
 
-                <div class="col-sm-2">
-                    ${{proposal.cost}}
+                <div class="col-sm-2 font-green">
+                    ${{proposal.price}}
                 </div>
             </div>
 
@@ -42,8 +51,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" class="btn btn-success">Response</button>
-                    <button type="button" class="btn btn-danger">Delete Proposal</button>
+                    <button type="button" class="btn btn-success" ng-click="response()">Response for Proposal</button>
                 </div>
             </div>
 
@@ -60,7 +68,7 @@
 
                     <input id="input-id" type="text" class="rating" data-size="lg">
 
-                    <button type="button" class="btn btn-warning">Finish and Rate Candidate</button>
+                    <button type="button" class="btn btn-warning" ng-click="closeAndRate()">Close and Rate Candidate</button>
                 </div>
             </div>
         </blockquote>
@@ -70,13 +78,14 @@
 
             <div class="row" ng-repeat="response in responses">
                 <div class="col-sm-12">
-                    {{response.name}}
+                    {{response.name || response.id}}
 
-                    <span ng-repeat="_ in ((_ = []) && (_.length=response.rating) && _) track by $index">&#9733;</span>
+                    <span ng-repeat="_ in ((_ = []) && (_.length=response.averageRating) && _) track by $index">&#9733;</span>
+                    <span ng-if="!response.averageRating">no rating</span>
 
-                    <label for="">Date: </label> {{response.date}}
+                    <label for="">Date: </label> {{response.time}}
 
-                    <button type="button" class="btn btn-success">Choose Candidate</button>
+                    <button type="button" class="btn btn-success" ng-click="chooseCandidate(response.id)">Choose Candidate</button>
                 </div>
             </div>
         </div>
