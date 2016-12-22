@@ -268,3 +268,8 @@
     outline-color: #ff004d;
     outline-width: 0!important;
 }
+.font-green{
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 26px;
+}

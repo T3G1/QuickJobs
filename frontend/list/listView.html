@@ -40,7 +40,7 @@
         <thead>
         <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} | filter: {category: filter.category.name} | filter: {region: filter.regionSearch} | price:filter.minPrice:filter.maxPrice" >
             <td>{{proposal.startTime}}</td>
-            <td><a href="" ng-click="changeView('proposal')">{{proposal.title}}</a></td>
+            <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
             <td>{{proposal.price}}</td>
