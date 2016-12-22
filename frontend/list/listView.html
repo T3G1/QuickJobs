@@ -7,7 +7,7 @@
             <li>
                 <input type="checkbox" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> My Proposals</li>
             <li>
-                <input type="checkbox"> My Responses</li>
+                <input type="checkbox" ng-model="filter.myResp"> My Responses</li>
             <li ng-click="checkFilter()">
                 <ui-select ng-model="filter.category" theme="select2" class="form-control" title="Choose a category">
                     <ui-select-match placeholder="Select category">{{$select.selected.name}}</ui-select-match>
@@ -38,7 +38,10 @@
         </thead>
 
         <thead>
-        <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} | filter: {category: filter.category.name} | filter: {region: filter.regionSearch} | price:filter.minPrice:filter.maxPrice" >
+        <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} |
+            filter: {category: filter.category.name} | filter: {region: filter.regionSearch} |
+            price:filter.minPrice:filter.maxPrice | date:filter.startDate:filter.endDate |
+            myResp:filter.myResp" >
             <td>{{proposal.startTime}}</td>
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
