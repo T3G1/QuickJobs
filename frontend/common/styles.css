@@ -1,16 +1,54 @@
+body {
+    background: url(../common/images/Main.jpg);
+    background-size: cover;
+    font-family: 'Slabo 27px', serif;
+    background-position: center center;
+}
+table {
+    background: rgba(255, 255, 220, 0.7);
+    font-size: 1.1em;
+}
+.main-container .container ul {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+}
+.container ul li {
+    display: inline-block;
+    position: relative;
+}
+.filter label {
+    position: absolute;
+    top: -30px;
+}
+.filter .ADMdtp-container {
+    display: inline-block;
+}
+h2 {
+    font-size: 26px;
+    font-weight: bold;
+}
+.left-area {
+    background: rgba(255,255,220,0.7);
+    padding-bottom: 186px;
+}
 .navbar-default {
     border-radius: 0;
     box-shadow: none;
     border: none;
     border-bottom: 2px solid #666;
     background: #fff;
+    font-size: 1.5em;
+    color: #000;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    background-color: #fdebf0;
+    background-color: #e9f3e4;
 }
-
+.navbar-default .navbar-nav > li > a {
+    color: #000;
+}
 .login .container,
 .landingView .container {
     background: #fff;
@@ -23,9 +61,12 @@
 .landingView h3 {
     text-align: center;
     padding-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    font-size: 26px;
 }
 .landingView h2 {
-    margin-top: 100px;
+    margin-top: 150px;
 }
 .landingView button,
 .login button {
@@ -37,8 +78,8 @@
 }
 .landingView form,
 .login form {
-    background: #fff;
-    padding: 20px 0;
+    padding: 15px 0;
+    background: rgba(255, 255, 220, 0.7);
 }
 
 .landingView form button {
@@ -56,6 +97,7 @@
     display: block;
     width: 100%;
     margin: auto;
+    padding: 1px 7px;
 }
 .login form input,
 .login form label {
@@ -89,9 +131,11 @@
 }
 .landingView form label,
 .login form label {
-    font-size: 0.9em;
-    color: #666;
-    padding: 9px 0;
+    font-size: 1em;
+    color: #000;
+    padding: 7px 0;
+    letter-spacing: 0.1em;
+    font-weight: normal;
 }
 .landingView input:-webkit-autofill, .landingView textarea:-webkit-autofill, .landingView select:-webkit-autofill {
     background-color: #fff !important;
@@ -101,7 +145,9 @@
     font-size: 20px;
 }
 .navbar-brand{
-    color: red !important;
+    color: #ff5200 !important;
+    font-size: 1.6em;
+    font-weight: bold;
 }
 .ADMdtp-container .masterInput input, .ADMdtp-container .masterInput input:focus, .ADMdtp-container .masterInput input:hover {
     border: none;
@@ -142,14 +188,14 @@
 .ADMdtp-container .ADMdtp-calendar-container .days > span > span.selected {
     width: 2.4em;
     height: 2.4em;
-    background: #ff004d !important;
+    background: #ff5200 !important;
     border-radius: 0; }
 .ADMdtp-container .ADMdtp-calendar-container .days > span > span:not(.disable):hover {
     background: #ddd;
     color: #666;
     border-radius: 0; }
 .ADMdtp-container .ADMdtp-calendar-container .days > span > span.today:after {
-    border-bottom: 0.7em solid #ff004d; }
+    border-bottom: 0.7em solid #ff5200; }
 .ADMdtp-container .ADMdtp-calendar-container footer {
     height: 3em; }
 .ADMdtp-container .ADMdtp-calendar-container footer .calTypeContainer {
@@ -170,17 +216,17 @@
 .ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .timePicker span.dtpIcon:hover:before {
     background: #ddd; }
 .ADMdtp-container .ADMdtp-calendar-container .timePickerContainer .calendarIcon:after {
-    border-top: 3em solid #ff004d; }
+    border-top: 3em solid #ff5200; }
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer {
     background: none; }
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .calendarIcon:after {
-    border-top: 3em solid #ff004d; }
+    border-top: 3em solid #ff5200; }
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer span > span {
     background: none;
     border: none;
     border-radius: 0; }
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer span > span.selected {
-    background: #ff004d;
+    background: #ff5200;
     color: #fff; }
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer .monthContainer .yearContainer p:before {
     padding-top: 5px; }
@@ -194,7 +240,7 @@
 .ADMdtp-container .ADMdtp-calendar-container .monthPickerContainer:after {
     background: none; }
 .ADMdtp-container .ADMdtp-calendar-container .dtpNewBox .calendarIcon:after {
-    border-top: 3em solid #ff004d; }
+    border-top: 3em solid #ff5200; }
 .ui-select-dropdown {
     top: 2px !important;
     left: 0;
@@ -211,6 +257,7 @@
     margin-bottom: 5px;
     box-shadow: 0 1px 8px rgba(0,0,0,.25);
     padding-right: 10px;
+    border-radius: 0;
 }
 .ui-select-container {
     position: relative;
@@ -258,14 +305,15 @@
 }
 .custom-btn {
     border-radius: 0;
-    border: 1px solid #ff004d;
-    color: #ff004d;
+    border: 1px solid #ff5200;
+    color: #ff5200;
     background: #fff;
     padding: 5px 10px;
-    width: 130px;
+    width: 145px;
+    font-size: 1.1em;
 }
 .custom-btn:focus {
-    outline-color: #ff004d;
+    outline-color: #ff5200;
     outline-width: 0!important;
 }
 .font-green{
