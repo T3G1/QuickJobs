@@ -36,7 +36,7 @@
         <thead>
         <tr ng-repeat="proposal in proposals">
             <td>{{proposal.startTime}}</td>
-            <td><a href="" ng-click="changeView('proposal')">{{proposal.title}}</a></td>
+            <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
             <td>{{proposal.price}}</td>
