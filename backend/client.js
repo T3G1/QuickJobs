@@ -96,6 +96,9 @@ exports.getProposal = function(req, res, next){
                     next({message: 'Cannot get proposal'});
                 } else {
                     var hiddenText = '';
+                    if (!req.user){
+                        req.user = {id: 0};
+                    }
                     if (clients.find(function(client){return client.clientId == req.user.id})){
                         hiddenText = ', proposals.hiddenText';
                     }
