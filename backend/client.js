@@ -60,7 +60,7 @@ exports.createProposal = function(req, res, next){
 };
 
 exports.getAllProposals = function(req, res, next){
-    logger.debug('get all proposals API, user email %s', req.user.email);
+    logger.debug('get all proposals API');
     db.getConnection(function(err, connection){
         if(err) {
             logger.error(err);
