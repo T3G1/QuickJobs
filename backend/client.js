@@ -231,7 +231,9 @@ exports.closeAndRate = function(req, res, next){
             next({message: 'Cannot close proposal, please try again later'});
         } else {
             checkOwnership(connection, req, res, next, function(connection, req, res, next){
-                connection.query('UPDATE responses, proposals SET proposals.inProgress = 0, responses.rating = ? WHERE proposals.id = ? AND responses.id = ?',
+                connection.query('UPDATE responses, proposals ' +
+                    'SET proposals.inProgress = 0, responses.rating = ? ' +
+                    'WHERE proposals.id = ? AND responses.id = ? AND responses.proposalId = proposals.id',
                     [req.body.rating, req.body.proposalId, req.body.responseId], function (err, result) {
                         if (err) {
                             logger.error(err);
