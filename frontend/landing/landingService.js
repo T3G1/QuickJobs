@@ -8,6 +8,16 @@ angular.module('quickJobs.landing').factory('landingService',
             return $http.get('api/v1/landing/filters/' + companyId);
         };
 
+        self.transformDate = function (viewDate) {
+            if (viewDate != 0) {
+                var date = viewDate.replace(/\//g, '-');
+                date = date.concat(':00');
+            } else {
+                date = null;
+            }
+            return date;
+        };
+
         return self;
     }
     ]);

@@ -7,16 +7,16 @@
 </head>
 <body ng-controller="loginController">
 <div class="container login">
-    <div  class="col-lg-8 col-lg-offset-2">
-        <form name="log-in">
+    <div  class="col-lg-4 col-lg-offset-4">
+        <form name="login">
             <label>E-mail</label>
-            <input type="email" name="e-mail" required/>
+            <input ng-model="user.email" type="email" name="e-mail" required/>
             <label>Password</label>
-            <input type="password" name="pass1" required/>
+            <input ng-model="user.pass" type="password" name="pass1" required/>
             <div class="center-align">
                 <div class="btn-group">
-                    <button class="btn btn-sm">Log in</button>
-                    <button class="btn btn-sm">Sign up</button>
+                    <button class="btn btn-sm custom-btn">Log in</button>
+                    <button ng-click="signUp()" class="btn btn-sm custom-btn">Sign up</button>
                 </div>
             </div>
         </form>
