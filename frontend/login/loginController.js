@@ -41,7 +41,10 @@ angular.module('quickJobs.login', ['ngRoute'])
         $scope.user = {email: undefined, pass: undefined};
         $scope.logIn = function () {
             var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-            loginService.login(data)
+            loginService.login(data).then(function() {
+                window.location = '/list';
+
+            })
         };
 
         $scope.signUp = function () {
