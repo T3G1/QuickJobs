@@ -3,7 +3,7 @@
 angular.module('quickJobs', [
     'ngRoute',
     'ui.bootstrap',
-    // 'preferences',
+    'preferences',
     // 'angularMoment',
     'angular-click-outside',
     'ui.grid',
@@ -32,7 +32,8 @@ angular.module('quickJobs', [
         });
     }])
 
-    .run(['$rootScope', function($rootScope){
+    .run(['$rootScope', 'preferences', function($rootScope, preferences){
+        $rootScope.isLoggedIn = !!preferences.get('user');
         $rootScope.categories = [
             { name: 'Tutors', group: 'Educational'},
             { name: 'House maintenance', group: 'Household'},
@@ -52,13 +53,30 @@ angular.module('quickJobs', [
     }])
 
 
-    .controller('quickJobsController', ['$scope', '$location',
-        function($scope, $location) {
+    .controller('quickJobsController', ['$scope', '$location', '$rootScope', 'generalService', 'preferences',
+        function($scope, $location, $rootScope, generalService, preferences) {
             $scope.changeView = function(view){
                 $location.path(view);
             };
 
             $scope.currentMenuIsActive = function(menu) {
                 return $location.path().replace(/^\/|\/$/g, '') == menu;
+            };
+
+            $scope.logout = function(){
+                generalService.logout().then(function(data){
+                    preferences.clear();
+                    $rootScope.isLoggedIn = false;
+                }, function(error){
+
+                })
+            };
+        }])
+
+    .factory('generalService', ['$http', function($http){
+        return {
+            logout: function(){
+                return $http.get('api/logout');
             }
-        }]);
+        }
+    }]);

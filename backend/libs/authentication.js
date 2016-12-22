@@ -70,7 +70,7 @@ exports.init = function(app) {
                 req.session.cookie.expires = false;
                 //req.session.cookie.maxAge = null;
             }
-            res.json({message:'Authenticated!'});
+            res.json({message:'Authenticated!', currentUser: {id: req.user.id, email: req.user.email}});
         }
     );
 

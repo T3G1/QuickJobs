@@ -60,8 +60,9 @@
                     </li>
 
                     <li ng-class="{'active': currentMenuIsActive('login')}">
-                        <a href="" ng-click="changeView('login')">
-                            <span>Login/Signup</span>
+                        <a href="" ng-click="isLoggedIn ? logout() : changeView('login')">
+                            <span ng-if="!isLoggedIn">Login/Signup</span>
+                            <span ng-if="isLoggedIn">Logout</span>
                         </a>
                     </li>
                 </ul>
@@ -116,6 +117,7 @@
 <script src="proposal/proposalController.js"></script>
 <script src="proposal/proposalService.js"></script>
 
+<script src="preferences/preferences.js"></script>
 
 </body>
 </html>

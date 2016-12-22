@@ -9,7 +9,7 @@ angular.module('quickJobs.login', ['ngRoute'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', '$http', function ($scope, $location, loginService, $rootScope, $http) {
+    .controller('loginController', ['$scope', '$location', 'loginService', '$rootScope', '$http', 'preferences', function ($scope, $location, loginService, $rootScope, $http, preferences) {
         /*$rootScope.isLoggedIn = false;
 
         $scope.user = loginService.getUser().success(function (data) {
@@ -41,9 +41,10 @@ angular.module('quickJobs.login', ['ngRoute'])
         $scope.user = {email: undefined, pass: undefined};
         $scope.logIn = function () {
             var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-            loginService.login(data).then(function() {
+            loginService.login(data).then(function(data) {
                 window.location = '/list';
-
+                preferences.set('user', data.data.currentUser);
+                $rootScope.isLoggedIn = true;
             })
         };
 
