@@ -281,3 +281,6 @@
 .response-row span{
     margin-top: 7px;
 }
+.no-pointer-events{
+    pointer-events: none;
+}

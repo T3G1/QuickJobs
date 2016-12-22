@@ -67,10 +67,10 @@
 
             <br>
 
-            <div class="row">
+            <div class="row" ng-show="currentUser.id == proposal.clientId">
                 <div class="col-sm-12">
 
-                    <input id="input-id" type="text" class="rating" data-size="lg" ng-disabled="!proposal.inProgress">
+                    <input id="input-id" type="text" class="rating" data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
 
                     <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress"
                             ng-click="proposal.inProgress && closeAndRate()">Close and Rate Candidate</button>
@@ -92,9 +92,9 @@
                     <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium'}}</span>
 
                     <button type="button" class="btn btn-success" ng-disabled="!proposal.inProgress"
-                            ng-if="!responseChosen" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>
+                            ng-if="!responseChosen && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>
                     <button type="button" class="btn btn-primary" ng-disabled="!proposal.inProgress"
-                            ng-if="response.chosen == 1" ng-click="proposal.inProgress && revertCandidateChoice(response.id)">Revert Candidate Choice</button>
+                            ng-if="response.chosen == 1 && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && revertCandidateChoice(response.id)">Revert Candidate Choice</button>
                 </div>
             </div>
         </div>

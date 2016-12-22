@@ -13,9 +13,10 @@ angular.module('quickJobs.proposal', ['ngRoute'])
         });
     }])
 
-    .controller('proposalController', ['$scope', 'proposalService', '$routeParams',
-        function ($scope, proposalService, $routeParams) {
+    .controller('proposalController', ['$scope', 'proposalService', '$routeParams', 'preferences',
+        function ($scope, proposalService, $routeParams, preferences) {
             var proposalId = $routeParams.id;
+            $scope.currentUser = preferences.get('user');
 
             function updateData() {
                 proposalService.getProposal(proposalId).success(function (data) {
