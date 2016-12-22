@@ -273,3 +273,11 @@
     font-weight: bold;
     font-size: 26px;
 }
+.response-row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 30px;
+}
+.response-row span{
+    margin-top: 7px;
+}

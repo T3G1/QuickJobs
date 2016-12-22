@@ -19,12 +19,8 @@
                     <label for="">Name:</label> {{proposal.title}}
                 </div>
 
-                <div class="col-sm-3">
-                    <label for="">Date:</label> {{proposal.startTime}}
-                </div>
-
-                <div class="col-sm-2 font-green">
-                    ${{proposal.price}}
+                <div class="col-sm-5">
+                    <label for="">Price:</label> ${{proposal.price}}
                 </div>
             </div>
 
@@ -41,6 +37,18 @@
             </div>
 
             <div class="row">
+                <div class="col-sm-7"></div>
+
+                <div class="col-sm-3">
+                    <label for="">Start time:</label> {{proposal.startTime | date : 'medium'}}
+                </div>
+
+                <div class="col-sm-2">
+                    <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime | date : 'medium'}}
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-sm-12">
                     <label for="">Description:</label>
                 </div>
@@ -50,16 +58,17 @@
                 </div>
             </div>
 
+            <div class="row" ng-if="proposal.hiddenText">
+                <div class="col-sm-12">
+                    <label for="">Comment:</label>
+                    {{proposal.hiddenText}}
+                </div>
+            </div>
+
             <br>
 
             <div class="row">
                 <div class="col-sm-12">
-                    <ul>
-                        <li>Quality of the rendered service</li>
-                        <li>Relevance of the price</li>
-                        <li>Speed of service execution</li>
-                        <li>Speed of response</li>
-                    </ul>
 
                     <input id="input-id" type="text" class="rating" data-size="lg">
 
@@ -71,17 +80,18 @@
         <div class="container">
             <h1>All Responses</h1>
 
-            <div class="row" ng-repeat="response in responses">
+            <div class="row response-row" ng-repeat="response in responses">
                 <div class="col-sm-12">
-                    {{response.name || response.id}}
+                    <span class="col-sm-3"><b>Email:</b> {{response.email || response.id}}</span>
 
                     <span ng-repeat="_ in ((_ = []) && (_.length=response.averageRating) && _) track by $index">&#9733;</span>
-                    <span ng-if="!response.averageRating">no rating</span>
+                    <span class="col-sm-3" ng-if="response.averageRating"><b>Average rating:</b> {{response.averageRating}}</span>
+                    <span class="col-sm-3" ng-if="!response.averageRating">no rating</span>
 
-                    <label for="">Date: </label> {{response.time}}
+                    <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium'}}</span>
 
-                    <button type="button" class="btn btn-success" ng-if="response.chosen == 0" ng-click="chooseCandidate(response.id)">Choose Candidate</button>
-                    <span ng-if="response.chosen == 1" class="font-green">Chosen!</span>
+                    <button type="button" class="btn btn-success" ng-if="!responseChosen" ng-click="chooseCandidate(response.id)">Choose Candidate</button>
+                    <button type="button" class="btn btn-primary" ng-if="response.chosen == 1" ng-click="revertCandidateChoice(response.id)">Revert Candidate Choice</button>
                 </div>
             </div>
         </div>

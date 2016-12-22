@@ -19,8 +19,15 @@ angular.module('quickJobs.proposal').factory('proposalService',
             });
         };
 
+        self.revertCandidateChoice = function (proposalId, responseId) {
+            return $http.post('api/client/revert-candidate-choice/', {
+                proposalId: proposalId,
+                responseId: responseId
+            });
+        };
+
         self.closeAndRate = function (proposalId, responseId, rating) {
-            return $http.post('api/client/choose-candidate/', {
+            return $http.post('api/client/close-and-rate/', {
                 proposalId: proposalId,
                 responseId: responseId,
                 rating: rating
