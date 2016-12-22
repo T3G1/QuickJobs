@@ -19,14 +19,14 @@
 angular.module('quickJobs.login').factory('loginService',
     ['$http', function($http) {
         return {
-            getUser: function(customUserId) {
-                if(customUserId){
-                    return $http.get('api/v1/user/' + customUserId);
-                }
-                else{
-                    return $http.get('api/v1/user');
-                }
+            signup: function(user) {
+                return $http.put('/api/signup', user);
+            },
+
+            login: function(user) {
+                return $http.post('/api/login', user);
             }
+
         };
     }
     ]);
