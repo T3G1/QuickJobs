@@ -66,9 +66,15 @@ exports.getAllProposals = function(req, res, next){
             logger.error(err);
             next({message: 'Cannot get proposal list, please try again later'});
         } else {
-            connection.query('SELECT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
-                'proposals.startTime, proposals.endTime, proposals.category, proposals.region, proposals.inProgress FROM proposals, clients ' +
-                'WHERE proposals.clientId = clients.id ORDER BY id DESC', function (err, rows) {
+            if (!req.user){
+                req.user = {id: 0};
+            }
+            connection.query('SELECT DISTINCT clients.email, proposals.id, proposals.title, proposals.description, proposals.price, ' +
+            'proposals.startTime, proposals.endTime, proposals.category, proposals.region, proposals.inProgress, CASE WHEN responses.clientId = ? THEN 1 ELSE 0 END as hasMyResponse ' +
+            'FROM proposals ' +
+            'JOIN clients ON proposals.clientId = clients.id ' +
+            'LEFT JOIN responses ON proposals.id = responses.proposalId AND responses.clientId = ? ' +
+            'ORDER BY id DESC', [req.user.id, req.user.id], function (err, rows) {
                 if (err) {
                     logger.error(err);
                     next({message: 'Cannot get proposals'});
