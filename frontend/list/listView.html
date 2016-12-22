@@ -22,6 +22,7 @@
                 <adm-dtp ng-model='filter.endDate' options="{autoClose:'true'}"></adm-dtp>
             </li>
             <li> <input type="text" ng-model="filter.regionSearch"/></li>
+            <li> <input type="text" ng-model="filter.nameSearch"/></li>
         </ul>
     </div>
 
@@ -41,7 +42,7 @@
         <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} |
             filter: {category: filter.category.name} | filter: {region: filter.regionSearch} |
             price:filter.minPrice:filter.maxPrice | date:filter.startDate:filter.endDate |
-            myResp:filter.myResp" >
+            myResp:filter.myResp | filter: {title: filter.nameSearch} " >
             <td>{{proposal.startTime}}</td>
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>

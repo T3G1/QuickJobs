@@ -33,9 +33,7 @@ angular.module('quickJobs.list', ['ngRoute'])
             var filterEnd = new Date(filterEndDate).getTime();
 			angular.forEach(items, function(item) {
 			    var startDate = item.startTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
-                console.log(startDate);
 			    startDate = new Date(startDate).getTime();
-                console.log(startDate);
                 if (item.endTime) {
                     var endDate = item.endTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
                     endDate = new Date(endDate).getTime();
@@ -75,6 +73,7 @@ angular.module('quickJobs.list', ['ngRoute'])
 				myProp: false,
 				category: undefined,
 				regionSearch: undefined,
+				nameSearch: undefined,
                 myResp: false
 			};
 			$scope.categories = $rootScope.categories;
