@@ -346,3 +346,15 @@ h2 {
 .no-pointer-events{
     pointer-events: none;
 }
+
+h1,
+.text-shadow{
+    text-shadow: 0.5px 0.5px #aaa;
+}
+
+li .ADMdtp-container{
+    margin-bottom:-10px;
+}
+li .ui-select-container{
+    bottom:-3px;
+}
