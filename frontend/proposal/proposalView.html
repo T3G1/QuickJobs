@@ -9,42 +9,42 @@
         <div class="col-sm-4">
             <!--<button type="button" class="btn btn-danger pull-right" ng-click="deleteProposal()">Delete Proposal</button>-->
             <button type="button" class="btn btn-success pull-right" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && response()">Response for Proposal</button>
-            <button type="button" class="btn btn-primary pull-right" ng-if="currentUser.id == proposal.clientId" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && closeProposal()">Close proposal</button>
+            <button type="button" class="btn btn-primary pull-right" ng-if="proposal && currentUser.id == proposal.clientId" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && closeProposal()">Close proposal</button>
         </div>
     </div>
 
     <div class="panel">
         <blockquote>
             <div class="row">
-                <div class="col-sm-7">
+                <div class="col-sm-6">
                     <label for="">Name:</label> {{proposal.title}}
                 </div>
 
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <label for="">Price:</label> ${{proposal.price}}
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-7"></div>
+                <div class="col-sm-6"></div>
 
                 <div class="col-sm-3">
                     <label for="">Category:</label> {{proposal.category}}
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label for="">Region:</label> {{proposal.region}}
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-7"></div>
+                <div class="col-sm-6"></div>
 
                 <div class="col-sm-3">
                     <label for="">Start time:</label> {{proposal.startTime | date : 'medium'}}
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime | date : 'medium'}}
                 </div>
             </div>
@@ -71,10 +71,10 @@
             <div class="row" ng-show="currentUser.id == proposal.clientId">
                 <div class="col-sm-12">
 
-                    <input id="input-id" type="text" class="rating" data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
+                    <input id="input-id" type="text" class="rating" ng-show="proposal" data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
 
                     <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress"
-                            ng-click="proposal.inProgress && closeAndRate()">Close and Rate Candidate</button>
+                            ng-click="proposal.inProgress && closeAndRate()" ng-if="proposal">Close and Rate Candidate</button>
                 </div>
             </div>
         </blockquote>
