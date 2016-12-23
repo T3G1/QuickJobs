@@ -166,7 +166,9 @@ h2 {
     font-size: 1.6em;
     font-weight: bold;
 }
-.ADMdtp-container .masterInput input, .ADMdtp-container .masterInput input:focus, .ADMdtp-container .masterInput input:hover {
+.ADMdtp-container .masterInput input, 
+.ADMdtp-container .masterInput input:focus, 
+.ADMdtp-container .masterInput input:hover {
     border: none;
     border-bottom: 1px solid #ccc;
     border-radius: 0;
@@ -174,7 +176,15 @@ h2 {
     font-size: 1em;
     height: 26px;
     padding: 0;
-    background-color: rgba(0,0,0,0);}
+    background-color: rgba(0,0,0,0);
+}
+
+.list .ADMdtp-container .masterInput input,
+.list .ADMdtp-container .masterInput input:focus,
+.list .ADMdtp-container .masterInput input:hover {
+    background: #fff;
+}
+
 
 .ADMdtp-container .masterInput {
     width: 100%;
@@ -383,4 +393,8 @@ li .ui-select-container{
 }
 .ui-select-dropdown{
     padding:5px;
+}
+
+li .form-control{
+    background: #fff;
 }
