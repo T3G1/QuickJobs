@@ -157,6 +157,13 @@ h2 {
 .rating-container{
     font-size: 20px;
 }
+.average-rating .rating-container{
+    display: inline-block;
+    font-size: 20px;
+}
+.response-row span.average-rating{
+    margin-top: 0;
+}
 .navbar-brand{
     color: #ff5200 !important;
     font-size: 1.6em;

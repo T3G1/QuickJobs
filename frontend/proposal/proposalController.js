@@ -22,6 +22,12 @@ angular.module('quickJobs.proposal', ['ngRoute'])
                 proposalService.getProposal(proposalId).success(function (data) {
                     $scope.proposal = data.proposal;
                     $scope.responses = data.responses;
+                    $scope.responses.forEach(function(response){
+                        setTimeout(function(){
+                            $('#' + response.id).rating({clearButton: '', size: 'xs'});
+                            $('#' + response.id).rating('update', response.averageRating);
+                        }, 1);
+                    });
                     isChosenResponse();
                 });
             }
