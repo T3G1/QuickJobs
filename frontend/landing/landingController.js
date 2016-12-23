@@ -16,12 +16,12 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
             $scope.prop = {};
             $scope.categories = $rootScope.categories;
             $scope.transformDate = function (viewDate) {
-                if (viewDate != 0) {
-                    var date = viewDate.replace(/\//g, "-").replace(' ', 'T').concat(':00Z');
-                } else {
-                    date = null;
-                }
-                return date;
+                // if (viewDate != 0) {
+                //     var date = viewDate.replace(/\//g, "-").replace(' ', 'T').concat(':00Z');
+                // } else {
+                //     date = null;
+                // }
+                return viewDate;
             };
             $scope.sendProposal = function () {
                 var data = {

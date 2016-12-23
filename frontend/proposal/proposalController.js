@@ -37,7 +37,9 @@ angular.module('quickJobs.proposal', ['ngRoute'])
                     var response = $scope.responses.find(function(response){
                         return response.rating;
                     });
-                    $('#input-id').rating('update', response.rating);
+                    if(response){
+                        $('#input-id').rating('update', response.rating);
+                    }
                 }
             }
 

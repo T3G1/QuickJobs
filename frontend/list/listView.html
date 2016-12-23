@@ -7,9 +7,10 @@
             <input type="checkbox" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> My Proposals</div>
         <div>
             <input type="checkbox" ng-model="filter.myResp"> My Responses</div>
+        <br><br>
         <ul>
             <li> <label>Region</label><input type="text" ng-model="filter.regionSearch"/></li>
-            <li> <label>Name</label><input type="text" ng-model="filter.nameSearch"/></li>
+            <li> <label>Title</label><input type="text" ng-model="filter.nameSearch"/></li>
             <li>
                 <label>Category</label>
                 <ui-select ng-model="filter.category" theme="select2" class="form-control" title="Choose a category">
