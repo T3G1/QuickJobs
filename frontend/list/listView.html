@@ -52,7 +52,7 @@
             myResp:filter.myResp | filter: {title: filter.nameSearch} " >
             <!--<td colspan="2" ng-if="!proposal.endTime">{{proposal.startTime | date : 'medium'}}</td>-->
             <td>{{proposal.email}}</td>
-            <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
+            <td><a  href="proposal/{{proposal.id}}">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
             <td>{{proposal.startTime | date : 'medium' : 'UTC'}} <br ng-if="proposal.endTime"/>{{proposal.endTime | date : 'medium' : 'UTC'}}</td>
