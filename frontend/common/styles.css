@@ -89,7 +89,7 @@ h2 {
 }
 .landingView form,
 .login form {
-    padding: 15px 0;
+    padding: 15px;
     background: rgba(255, 255, 220, 0.7);
 }
 
@@ -100,6 +100,7 @@ h2 {
 .login form button {
     display: block;
     margin: 20px;
+    margin-right:0;
 }
 .landingView form input,
 .landingView form label,
@@ -127,6 +128,7 @@ h2 {
     border-bottom: 1px solid #ccc;
     background: rgba(0,0,0,0);
     outline: none;
+    padding-left: 7px;
 }
 .landingView form select {
     height: 26px;
