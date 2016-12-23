@@ -1,8 +1,14 @@
+html, body{
+    height:100%;
+    min-height:100%;
+}
 body {
-    background: url(../common/images/Main.jpg);
+    background: url(../common/images/Main.jpg) no-repeat;
+    /*background-size: 100%;*/
     background-size: cover;
     font-family: 'Slabo 27px', serif;
     background-position: center center;
+    /*background-clip: border-box;*/
 }
 table {
     background: rgba(255, 255, 220, 0.7);
