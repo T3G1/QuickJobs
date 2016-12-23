@@ -125,6 +125,8 @@ h2 {
 .login form input {
     border: none;
     border-bottom: 1px solid #ccc;
+    background: rgba(0,0,0,0);
+    outline: none;
 }
 .landingView form select {
     height: 26px;
@@ -167,7 +169,8 @@ h2 {
     box-shadow: none;
     font-size: 1em;
     height: 26px;
-    padding: 0; }
+    padding: 0;
+    background-color: rgba(0,0,0,0);}
 
 .ADMdtp-container .masterInput {
     width: 100%;
@@ -278,6 +281,7 @@ h2 {
     border-bottom: 1px solid #ccc;
     height: 26px;
     z-index: 5;
+    background-color: rgba(0,0,0,0);
 }
 .ui-select-container a,
 .ui-select-container a:hover,
@@ -345,4 +349,10 @@ h2 {
 }
 .no-pointer-events{
     pointer-events: none;
+}
+.proposal-blockquote {
+    border: 0;
+}
+.responses-panel{
+    padding: 10px 0 20px;
 }
