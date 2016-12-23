@@ -40,11 +40,11 @@
                 <div class="col-sm-7"></div>
 
                 <div class="col-sm-3">
-                    <label for="">Start time:</label> {{proposal.startTime | date : 'medium'}}
+                    <label for="">Start time:</label> {{proposal.startTime }}
                 </div>
 
                 <div class="col-sm-2">
-                    <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime | date : 'medium'}}
+                    <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime }}
                 </div>
             </div>
 
@@ -89,7 +89,8 @@
                     <span class="col-sm-3" ng-if="response.averageRating"><b>Average rating:</b> {{response.averageRating}}</span>
                     <span class="col-sm-3" ng-if="!response.averageRating">no rating</span>
 
-                    <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium'}}</span>
+                    <!--<span class="col-sm-3"><b>Date:</b> {{response.startTime | date : 'medium'}}</span>-->
+                    <span class="col-sm-3"><b>Date:</b> {{response.time}}</span>
 
                     <button type="button" class="btn btn-success" ng-disabled="!proposal.inProgress"
                             ng-if="!responseChosen && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>

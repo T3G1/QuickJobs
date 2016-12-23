@@ -31,18 +31,19 @@ angular.module('quickJobs.list', ['ngRoute'])
             console.log (filterStartDate);
             var filterStart = new Date(filterStartDate).getTime();
             var filterEnd = new Date(filterEndDate).getTime();
-			angular.forEach(items, function(item) {
-			    var startDate = item.startTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
-			    startDate = new Date(startDate).getTime();
-                if (item.endTime) {
-                    var endDate = item.endTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
-                    endDate = new Date(endDate).getTime();
-                }
-				if ((startDate >= filterStart || !filterStart) && (startDate <= filterEnd || !filterEnd) &&
-                    (endDate <= filterEnd || (!endDate || !filterEnd)) && (endDate <= filterStart || (!endDate || !filterStart))) {
-					out.push(item);
-				}
-			});
+
+			// angular.forEach(items, function(item) {
+			//     var startDate = item.startTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
+			//     startDate = new Date(startDate).getTime();
+             //    if (item.endTime) {
+             //        var endDate = item.endTime.substr(0, 16).replace(/-/g, "/").replace("T", " ");
+             //        endDate = new Date(endDate).getTime();
+             //    }
+			// 	if ((startDate >= filterStart || !filterStart) && (startDate <= filterEnd || !filterEnd) &&
+             //        (endDate <= filterEnd || (!endDate || !filterEnd)) && (endDate <= filterStart || (!endDate || !filterStart))) {
+			// 		out.push(item);
+			// 	}
+			// });
 			return out;
 		};
 	})
@@ -85,16 +86,27 @@ angular.module('quickJobs.list', ['ngRoute'])
 
 				console.log($scope.proposals.startTime);
 				console.log($rootScope.categories);
-
 				}
 			);
+var filtered = false;
+            $scope.filter.myPropEmail = '';
 			$scope.setMyPropFilter = function () {
-				if ($scope.filter.myProp) {
-					$scope.filter.myPropEmail = preferences.get('user').email;
-				} else {
-					$scope.filter.myPropEmail = undefined;
-				}
+                if(!filtered){
+                    if ($scope.filter.myProp) {
+                        if(preferences.get('user')){
+                            $scope.filter.myPropEmail = preferences.get('user').email;
+                        }
+                        $scope.filter.myPropEmail = ' ';
+                    } else {
+                        $scope.filter.myPropEmail = ' ';
+                    }
+                }
+				else{
+                    $scope.filter.myPropEmail = '';
+                }
+                filtered = !filtered;
 			};
+
 			$scope.checkFilter = function () {
 				console.log($scope.filter)
 			};
