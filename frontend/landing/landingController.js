@@ -42,8 +42,8 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
                 });
             };
 
-            $scope.logIn = function () {
-                var data = {'email': $scope.user.email, 'password': $scope.user.pass};
+            $scope.logIn = function (user) {
+                var data = user || {'email': $scope.user.email, 'password': $scope.user.pass};
                 landingService.login(data).then(function(data){
                     if ($scope.prop != 0) {
                         $scope.sendProposal();
@@ -56,7 +56,7 @@ angular.module('quickJobs.landing', ['ngRoute', 'ADM-dateTimePicker'])
             $scope.signUp = function () {
                 var data = {'email': $scope.user.email, 'password': $scope.user.pass};
                 landingService.signup(data).then(function(){
-                    $scope.logIn()
+                    $scope.logIn(data);
                 },
                 function(err) {
                     console.log(err);
