@@ -34,7 +34,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Start time</th>
+            <th colspan="2">Time</th>
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
@@ -46,9 +46,11 @@
         <thead>
         <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} |
             filter: {category: filter.category.name} | filter: {region: filter.regionSearch} |
-            price:filter.minPrice:filter.maxPrice | date:filter.startDate:filter.endDate |
+            price:filter.minPrice:filter.maxPrice | time:filter.startDate:filter.endDate |
             myResp:filter.myResp | filter: {title: filter.nameSearch} " >
-            <td>{{proposal.startTime}}</td>
+            <!--<td colspan="2" ng-if="!proposal.endTime">{{proposal.startTime | date : 'medium'}}</td>-->
+            <td>{{proposal.startTime | date : 'medium'}}</td>
+            <td>{{proposal.endTime | date : 'medium'}}</td>
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
