@@ -68,7 +68,7 @@
 
             <br>
 
-            <div class="row">
+            <div class="row" ng-show="responseChosen">
                 <div class="col-sm-12">
                     <label ng-if="proposal && !proposal.inProgress">This proposal was closed and the executor was rated for:</label>
                     <input id="input-id" type="text" class="rating" ng-show="proposal && (currentUser.email == proposal.email || !proposal.inProgress)"
