@@ -8,8 +8,8 @@
 
         <div class="col-sm-4">
             <!--<button type="button" class="btn btn-danger pull-right" ng-click="deleteProposal()">Delete Proposal</button>-->
-            <button type="button" class="btn btn-success pull-right" ng-if="proposal && !hasMyResponse && proposal.clientId != currentUser.id" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && response()">Response for Proposal</button>
-            <button type="button" class="btn btn-primary pull-right" ng-if="proposal && currentUser.id == proposal.clientId" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && closeProposal()">Close proposal</button>
+            <button type="button" class="btn btn-success pull-right" ng-if="proposal && !hasMyResponse && proposal.email != currentUser.email" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && response()">Response for Proposal</button>
+            <button type="button" class="btn btn-primary pull-right" ng-if="proposal && currentUser.email == proposal.email" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && closeProposal()">Close proposal</button>
         </div>
     </div>
 
@@ -50,13 +50,12 @@
                 </div>
             </div>
 
+            <br>
+
             <div class="row">
                 <div class="col-sm-12">
                     <label for="">Description:</label>
-                </div>
-
-                <div class="col-sm-12">
-                    <textarea style="width: 100%; height: 100px;" name="" disabled>{{proposal.description}}</textarea>
+                    {{proposal.description}}
                 </div>
             </div>
 
@@ -71,11 +70,11 @@
 
             <div class="row">
                 <div class="col-sm-12">
-
-                    <input id="input-id" type="text" class="rating" ng-show="proposal && (currentUser.id == proposal.clientId || !proposal.inProgress)"
+                    <label ng-if="proposal && !proposal.inProgress">This proposal was closed and the executor was rated for:</label>
+                    <input id="input-id" type="text" class="rating" ng-show="proposal && (currentUser.email == proposal.email || !proposal.inProgress)"
                            data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
 
-                    <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress" ng-if="currentUser.id == proposal.clientId"
+                    <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress" ng-if="currentUser.email == proposal.email"
                             ng-click="proposal.inProgress && closeAndRate()" ng-if="proposal">Close and Rate Candidate</button>
                 </div>
             </div>
@@ -95,12 +94,12 @@
                     <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium' : 'UTC'}}</span>
 
                     <span class="col-sm-3" ng-if="response.chosen && response.email == currentUser.email"> You have been chosen for this proposal!</span>
-                    <span class="col-sm-3" ng-if="response.chosen && response.email != currentUser.email && currentUser.id != proposal.clientId"> This candidate has been chosen for this proposal!</span>
+                    <span class="col-sm-3" ng-if="response.chosen && response.email != currentUser.email && currentUser.email != proposal.email"> This candidate has been chosen for this proposal!</span>
 
                     <button type="button" class="btn btn-success" ng-disabled="!proposal.inProgress"
-                            ng-if="!responseChosen && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>
+                            ng-if="!responseChosen && currentUser.email == proposal.email" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>
                     <button type="button" class="btn btn-primary" ng-disabled="!proposal.inProgress"
-                            ng-if="response.chosen == 1 && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && revertCandidateChoice(response.id)">Revert Candidate Choice</button>
+                            ng-if="response.chosen == 1 && currentUser.email == proposal.email" ng-click="proposal.inProgress && revertCandidateChoice(response.id)">Revert Candidate Choice</button>
                 </div>
             </div>
         </div>
