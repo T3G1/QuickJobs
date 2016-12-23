@@ -74,7 +74,7 @@
                     <input id="input-id" type="text" class="rating" ng-show="proposal && (currentUser.email == proposal.email || !proposal.inProgress)"
                            data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
 
-                    <button type="button" class="btn custom-btn btn-no-width" ng-disabled="!proposal.inProgress" ng-if="currentUser.email == proposal.email"
+                    <button type="button" class="btn custom-btn btn-no-width" ng-disabled="!proposal.inProgress" ng-if="proposal && currentUser.email == proposal.email"
                             ng-click="proposal.inProgress && closeAndRate()" ng-if="proposal">Close and Rate Candidate</button>
                 </div>
             </div>
