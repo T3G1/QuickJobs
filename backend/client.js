@@ -248,7 +248,31 @@ exports.closeAndRate = function(req, res, next){
                             logger.error(err);
                             next({message: 'Cannot close proposal'});
                         } else {
-                            logger.info('Response was sent successfully', result);
+                            logger.info('Proposal was closed and rated successfully', result);
+                            res.end();
+                        }
+                        connection.release();
+                    });
+            });
+        }
+    });
+};
+
+exports.close = function(req, res, next){
+    logger.debug('close API, user email %s', req.user.email);
+    db.getConnection(function(err, connection){
+        if(err) {
+            logger.error(err);
+            next({message: 'Cannot close proposal, please try again later'});
+        } else {
+            checkOwnership(connection, req, res, next, function(connection, req, res, next){
+                connection.query('UPDATE proposals SET proposals.inProgress = 0 WHERE proposals.id = ? ',
+                    req.body.proposalId, function (err, result) {
+                        if (err) {
+                            logger.error(err);
+                            next({message: 'Cannot close proposal'});
+                        } else {
+                            logger.info('Proposal was closed successfully', result);
                             res.end();
                         }
                         connection.release();

@@ -13,8 +13,8 @@ angular.module('quickJobs.login', ['ngRoute'])
         function ($scope, $location, loginService, $rootScope, preferences) {
 
         $scope.user = {email: undefined, pass: undefined};
-        $scope.logIn = function () {
-            var data = {'email': $scope.user.email, 'password': $scope.user.pass};
+        $scope.logIn = function (user) {
+            var data = user || {'email': $scope.user.email, 'password': $scope.user.pass};
             loginService.login(data).then(function(data) {
                 preferences.set('user', data.data.currentUser);
                 $rootScope.isLoggedIn = true;
@@ -24,6 +24,8 @@ angular.module('quickJobs.login', ['ngRoute'])
 
         $scope.signUp = function () {
             var data = {'email': $scope.user.email, 'password': $scope.user.pass};
-            loginService.signup(data)
+            loginService.signup(data).then(function(){
+                $scope.logIn(data);
+            }, function(error){});
         }
     }]);

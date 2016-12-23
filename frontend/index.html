@@ -65,7 +65,7 @@
                         <li ng-class="{'active': currentMenuIsActive('login')}">
                             <a href="" ng-cloak ng-click="isLoggedIn ? logout() : changeView('login')">
                                 <span ng-if="!isLoggedIn">Login/Signup</span>
-                                <span ng-if="isLoggedIn">Logout</span>
+                                <span ng-cloak ng-if="isLoggedIn">Logout</span>
                             </a>
                         </li>
                     </ul>

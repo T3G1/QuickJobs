@@ -4,12 +4,9 @@
     <div class="filter">
         Filters:
         <div >
-            <input type="checkbox" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> My Proposals
-        </div>
-        <br>
+            <input type="checkbox" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> My Proposals</div>
         <div>
-            <input type="checkbox" ng-model="filter.myResp"> My Responses
-        </div>
+            <input type="checkbox" ng-model="filter.myResp"> My Responses</div>
         <br><br>
         <ul>
             <li> <label>Region</label><input type="text" ng-model="filter.regionSearch"/></li>
@@ -28,9 +25,9 @@
                 <input ng-model="filter.minPrice" type="text" placeholder="from"><input ng-model="filter.maxPrice" type="text" placeholder="to"></li>
 
             <li>
-                <!--<label>Date</label>-->
-                <!--<adm-dtp ng-model='filter.startDate' options="{autoClose:'true'}"></adm-dtp>-->
-                <!--<adm-dtp ng-model='filter.endDate' options="{autoClose:'true'}"></adm-dtp>-->
+                <label>Date</label>
+                <adm-dtp ng-model='filter.startDate' options="{autoClose:'true'}"></adm-dtp>
+                <adm-dtp ng-model='filter.endDate' options="{autoClose:'true'}"></adm-dtp>
             </li>
         </ul>
     </div>
@@ -38,10 +35,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Start time</th>
+            <th>User</th>
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
+            <th>Time</th>
             <th>Price</th>
             <th>Region</th>
         </tr>
@@ -50,12 +48,14 @@
         <thead>
         <tr ng-repeat="proposal in proposals | filter: {email: filter.myPropEmail} |
             filter: {category: filter.category.name} | filter: {region: filter.regionSearch} |
-            price:filter.minPrice:filter.maxPrice |
+            price:filter.minPrice:filter.maxPrice | time:filter.startDate:filter.endDate |
             myResp:filter.myResp | filter: {title: filter.nameSearch} " >
-            <td>{{proposal.startTime}}</td>
+            <!--<td colspan="2" ng-if="!proposal.endTime">{{proposal.startTime | date : 'medium'}}</td>-->
+            <td>{{proposal.email}}</td>
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
+            <td>{{proposal.startTime | date : 'medium'}} <br ng-if="proposal.endTime"/>{{proposal.endTime | date : 'medium'}}</td>
             <td>{{proposal.price}}</td>
             <td>{{proposal.region}}</td>
         </tr>
