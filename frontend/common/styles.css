@@ -42,6 +42,8 @@ h2 {
     background: rgba(255,255,220,0.7);
     padding-bottom: 20px;
     margin-bottom:20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .navbar-default {
     border-radius: 0;
@@ -77,19 +79,22 @@ h2 {
     font-size: 26px;
 }
 .landingView h2 {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 .landingView button,
 .login button {
     margin: 20px;
 }
+.login{
+    /*width: 370px;*/
+}
 .landingView .btn-group :first-child,
 .login .btn-group :first-child {
-    margin-right: 20px;
+    margin-right: 0px;
 }
 .landingView form,
 .login form {
-    padding: 15px 0;
+    padding: 18px 30px 13px 30px;
     background: rgba(255, 255, 220, 0.7);
 }
 
@@ -100,6 +105,7 @@ h2 {
 .login form button {
     display: block;
     margin: 20px;
+    margin-right:0;
 }
 .landingView form input,
 .landingView form label,
@@ -124,9 +130,10 @@ h2 {
 .landingView form select,
 .login form input {
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #999;
     background: rgba(0,0,0,0);
     outline: none;
+    padding-left: 7px;
 }
 .landingView form select {
     height: 26px;
@@ -169,7 +176,9 @@ h2 {
     font-size: 1.6em;
     font-weight: bold;
 }
-.ADMdtp-container .masterInput input, .ADMdtp-container .masterInput input:focus, .ADMdtp-container .masterInput input:hover {
+.ADMdtp-container .masterInput input, 
+.ADMdtp-container .masterInput input:focus, 
+.ADMdtp-container .masterInput input:hover {
     border: none;
     border-bottom: 1px solid #ccc;
     border-radius: 0;
@@ -177,7 +186,15 @@ h2 {
     font-size: 1em;
     height: 26px;
     padding: 0;
-    background-color: rgba(0,0,0,0);}
+    background-color: rgba(0,0,0,0);
+}
+
+.list .ADMdtp-container .masterInput input,
+.list .ADMdtp-container .masterInput input:focus,
+.list .ADMdtp-container .masterInput input:hover {
+    background: #fff;
+}
+
 
 .ADMdtp-container .masterInput {
     width: 100%;
@@ -374,4 +391,20 @@ li .ui-select-container{
 }
 .responses-panel{
     padding: 10px 0 20px;
+    background: rgba(255, 255, 220, 0.7);
+}
+.select2-chosen{
+    text-shadow: 1px 1px #666;
+}
+
+.ui-select-match,
+.ui-select-choices-row-inner{
+    cursor: pointer;
+}
+.ui-select-dropdown{
+    padding:5px;
+}
+
+li .form-control{
+    background: #fff;
 }
