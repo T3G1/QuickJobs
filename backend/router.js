@@ -31,6 +31,10 @@ clientRouter.post('/close-and-rate',
     authentication.ensureAuthenticated(),
     validation.validateRating,
     client.closeAndRate);
+clientRouter.post('/close',
+    authentication.ensureAuthenticated(),
+    validation.validateProposalId,
+    client.close);
 
 var userRouter = express.Router();
 userRouter.get('/current-user',

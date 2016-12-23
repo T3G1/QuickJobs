@@ -68,8 +68,8 @@ angular.module('quickJobs.proposal', ['ngRoute'])
                 }
             };
 
-            $scope.deleteProposal = function () {
-                proposalService.closeAndRate(proposalId).success(function () {
+            $scope.closeProposal = function () {
+                proposalService.close(proposalId).success(function () {
                     updateData();
                 });
             };

@@ -9,6 +9,7 @@
         <div class="col-sm-4">
             <!--<button type="button" class="btn btn-danger pull-right" ng-click="deleteProposal()">Delete Proposal</button>-->
             <button type="button" class="btn btn-success pull-right" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && response()">Response for Proposal</button>
+            <button type="button" class="btn btn-primary pull-right" ng-if="currentUser.id == proposal.clientId" ng-disabled="!proposal.inProgress" ng-click="proposal.inProgress && closeProposal()">Close proposal</button>
         </div>
     </div>
 

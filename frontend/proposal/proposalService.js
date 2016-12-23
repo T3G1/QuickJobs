@@ -34,6 +34,12 @@ angular.module('quickJobs.proposal').factory('proposalService',
             });
         };
 
+        self.close = function (proposalId) {
+            return $http.post('api/client/close/', {
+                proposalId: proposalId
+            });
+        };
+
         return self;
     }
     ]);
