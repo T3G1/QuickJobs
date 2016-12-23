@@ -34,10 +34,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th colspan="2">Time</th>
+            <th>User</th>
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
+            <th>Time</th>
             <th>Price</th>
             <th>Region</th>
         </tr>
@@ -49,11 +50,11 @@
             price:filter.minPrice:filter.maxPrice | time:filter.startDate:filter.endDate |
             myResp:filter.myResp | filter: {title: filter.nameSearch} " >
             <!--<td colspan="2" ng-if="!proposal.endTime">{{proposal.startTime | date : 'medium'}}</td>-->
-            <td>{{proposal.startTime | date : 'medium'}}</td>
-            <td>{{proposal.endTime | date : 'medium'}}</td>
+            <td>{{proposal.email}}</td>
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
+            <td>{{proposal.startTime | date : 'medium'}} <br ng-if="proposal.endTime"/>{{proposal.endTime | date : 'medium'}}</td>
             <td>{{proposal.price}}</td>
             <td>{{proposal.region}}</td>
         </tr>

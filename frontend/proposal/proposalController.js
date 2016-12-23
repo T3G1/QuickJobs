@@ -30,7 +30,10 @@ angular.module('quickJobs.proposal', ['ngRoute'])
                 $scope.responseChosen = $scope.responses.find(function(response){
                     return response.chosen == 1;
                 });
-                if ($scope.responseChosen){
+                $scope.hasMyResponse = $scope.responses.find(function(response){
+                    return response.email == $scope.currentUser.email;
+                });
+                if ($scope.responseChosen && $scope.proposal.inProgress == 0){
                     var response = $scope.responses.find(function(response){
                         return response.rating;
                     });
