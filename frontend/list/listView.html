@@ -1,18 +1,18 @@
 <div class="container">
     <h1>List of Proposals</h1>
 
-    <div class="filter">
-        Filters:
+    <div class="filter ">
+        <span class="text-shadow">Filters:</span>
         <div >
-            <input type="checkbox" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> My Proposals</div>
+            <input type="checkbox" class="text-shadow" ng-model="filter.myProp" value="true" ng-click="setMyPropFilter()"> <span class="text-shadow">My Proposals</span></div>
         <div>
-            <input type="checkbox" ng-model="filter.myResp"> My Responses</div>
+            <input type="checkbox" class="text-shadow" ng-model="filter.myResp"> <span class="text-shadow">My Responses</span></div>
         <br><br>
         <ul>
-            <li> <label>Region</label><input type="text" ng-model="filter.regionSearch"/></li>
-            <li> <label>Title</label><input type="text" ng-model="filter.nameSearch"/></li>
+            <li> <label class="text-shadow">Region</label><input type="text" ng-model="filter.regionSearch"/></li>
+            <li> <label class="text-shadow">Title</label><input type="text" ng-model="filter.nameSearch"/></li>
             <li>
-                <label>Category</label>
+                <label class="text-shadow">Category</label>
                 <ui-select ng-model="filter.category" theme="select2" class="form-control" title="Choose a category">
                     <ui-select-match placeholder="Select category">{{$select.selected.name}}</ui-select-match>
                     <ui-select-choices group-by="'group'" repeat="item in categories | filter: $select.search">
@@ -21,11 +21,11 @@
                 </ui-select>
             </li>
             <li>
-                <label>Price</label>
+                <label class="text-shadow">Price</label>
                 <input ng-model="filter.minPrice" type="text" placeholder="from"><input ng-model="filter.maxPrice" type="text" placeholder="to"></li>
 
             <li>
-                <label>Date</label>
+                <label class="text-shadow">Date</label>
                 <adm-dtp ng-model="filter.startDate" options="{autoClose:'true'}"></adm-dtp>
                 <adm-dtp ng-model="filter.endDate" options="{autoClose:'true'}"></adm-dtp>
             </li>
