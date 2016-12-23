@@ -78,8 +78,6 @@ angular.module('quickJobs.list', ['ngRoute'])
 
 			listService.getList().success(function(data) {
 				$scope.proposals = data;
-                $scope.proposals.startTime = dateToView($scope.proposals.startTime);
-                $scope.proposals.endTime = dateToView($scope.proposals.endTime);
 
 				console.log($scope.proposals.startTime);
 				console.log($rootScope.categories);
@@ -96,14 +94,5 @@ angular.module('quickJobs.list', ['ngRoute'])
 			$scope.checkFilter = function () {
 				console.log($scope.filter)
 			};
-
-			var dateToView = function (date) {
-			    console.log(date)
-                if (date) {
-                    var viewDate = date.substr(0, 16).replace(/-/g, "/").replace("T", " ");
-                } else {viewDate = date;}
-                console.log(viewDate)
-                return viewDate;
-            }
 
 		}]);

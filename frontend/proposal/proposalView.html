@@ -26,8 +26,9 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6"></div>
-
+                <div class="col-sm-6">
+                    <label for="">User:</label> {{proposal.email}}
+                </div>
                 <div class="col-sm-3">
                     <label for="">Category:</label> {{proposal.category}}
                 </div>
@@ -41,11 +42,11 @@
                 <div class="col-sm-6"></div>
 
                 <div class="col-sm-3">
-                    <label for="">Start time:</label> {{proposal.startTime | date : 'medium'}}
+                    <label for="">Start time:</label> {{proposal.startTime | date : 'medium' : 'UTC'}}
                 </div>
 
                 <div class="col-sm-3">
-                    <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime | date : 'medium'}}
+                    <label ng-if="proposal.endTime" for="">End time:</label> {{proposal.endTime | date : 'medium' : 'UTC'}}
                 </div>
             </div>
 
@@ -68,12 +69,13 @@
 
             <br>
 
-            <div class="row" ng-show="currentUser.id == proposal.clientId">
+            <div class="row">
                 <div class="col-sm-12">
 
-                    <input id="input-id" type="text" class="rating" ng-show="proposal" data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
+                    <input id="input-id" type="text" class="rating" ng-show="proposal && (currentUser.id == proposal.clientId || !proposal.inProgress)"
+                           data-size="lg" ng-class="{'no-pointer-events': !proposal.inProgress}">
 
-                    <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress"
+                    <button type="button" class="btn btn-warning" ng-disabled="!proposal.inProgress" ng-if="currentUser.id == proposal.clientId"
                             ng-click="proposal.inProgress && closeAndRate()" ng-if="proposal">Close and Rate Candidate</button>
                 </div>
             </div>
@@ -90,10 +92,10 @@
                     <span class="col-sm-3" ng-if="response.averageRating"><b>Average rating:</b> {{response.averageRating}}</span>
                     <span class="col-sm-3" ng-if="!response.averageRating">no rating</span>
 
-                    <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium'}}</span>
+                    <span class="col-sm-3"><b>Date:</b> {{response.time | date : 'medium' : 'UTC'}}</span>
 
                     <span class="col-sm-3" ng-if="response.chosen && response.email == currentUser.email"> You have been chosen for this proposal!</span>
-                    <span class="col-sm-3" ng-if="response.chosen && response.email != currentUser.email"> This candidate has been chosen for this proposal!</span>
+                    <span class="col-sm-3" ng-if="response.chosen && response.email != currentUser.email && currentUser.id != proposal.clientId"> This candidate has been chosen for this proposal!</span>
 
                     <button type="button" class="btn btn-success" ng-disabled="!proposal.inProgress"
                             ng-if="!responseChosen && currentUser.id == proposal.clientId" ng-click="proposal.inProgress && chooseCandidate(response.id)">Choose Candidate</button>
