@@ -55,7 +55,7 @@
             <td><a href="" ng-click="changeView('proposal/' + proposal.id)">{{proposal.title}}</a></td>
             <td>{{proposal.description}}</td>
             <td>{{proposal.category}}</td>
-            <td>{{proposal.startTime | date : 'medium'}} <br ng-if="proposal.endTime"/>{{proposal.endTime | date : 'medium'}}</td>
+            <td>{{proposal.startTime | date : 'medium' : 'UTC'}} <br ng-if="proposal.endTime"/>{{proposal.endTime | date : 'medium' : 'UTC'}}</td>
             <td class="font-green">${{proposal.price}}</td>
             <td><img src="common/images/whitakergroup-google-location-icon.png" ng-if="proposal.region" alt="" width="12px"> &nbsp;{{proposal.region}}</td>
         </tr>

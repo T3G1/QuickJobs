@@ -68,6 +68,7 @@ angular.module('quickJobs', [
                 generalService.logout().then(function(data){
                     preferences.clear();
                     $rootScope.isLoggedIn = false;
+                    $location.path('/login');
                 }, function(error){
 
                 })

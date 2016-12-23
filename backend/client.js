@@ -108,7 +108,9 @@ exports.getProposal = function(req, res, next){
                     if (clients.find(function(client){return client.clientId == req.user.id})){
                         hiddenText = ', proposals.hiddenText';
                     }
-                    connection.query('SELECT id, title, description, price, startTime, endTime, category, region, clientId, inProgress' + hiddenText + ' FROM proposals WHERE id = ?',
+                    connection.query('SELECT proposals.id, proposals.title, proposals.description, proposals.price, proposals.startTime, ' +
+                        'proposals.endTime, proposals.category, proposals.region, clients.email, proposals.inProgress' + hiddenText + ' FROM proposals, clients ' +
+                        'WHERE proposals.id = ? AND proposals.clientId = clients.id',
                         req.params.id, function (err, proposal) {
                         if (err) {
                             logger.error(err);
